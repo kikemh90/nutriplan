@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#365f4b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="NutriPlan">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <title>NutriPlan</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div>
+        <div class="brand">NutriPlan</div>
+        <div class="subtitle">Planificación sencilla y saludable</div>
+      </div>
+      <div class="top-actions">
+        <button id="settingsBtn" class="icon-btn" aria-label="Datos y configuración">⚙️</button>
+        <button id="shoppingBtn" class="icon-btn" aria-label="Abrir lista de compra">
+          🛒 <span id="shoppingCount" class="badge">0</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="main">
+      <section id="view-guide" class="view active">
+        <div class="section-head">
+          <h1>Guía</h1>
+          <p>Referencias simples para construir una buena semana sin medirlo todo.</p>
+        </div>
+        <div id="guideContent"></div>
+      </section>
+
+      <section id="view-foods" class="view">
+        <div class="section-head">
+          <h1>Alimentos</h1>
+          <p>Busca, filtra y añade alimentos a tu lista de compra.</p>
+        </div>
+        <div class="controls sticky-controls">
+          <input id="foodSearch" class="search" type="search" placeholder="Buscar alimento, grupo, utilidad…">
+          <select id="foodGroupFilter"></select>
+          <select id="foodClassFilter"></select>
+        </div>
+        <div id="foodList" class="list"></div>
+      </section>
+
+      <section id="view-recipes" class="view">
+        <div class="section-head">
+          <h1>Recetas</h1>
+          <p>Abre una receta para ver ingredientes, preparación y valores aproximados.</p>
+        </div>
+        <div class="controls sticky-controls">
+          <input id="recipeSearch" class="search" type="search" placeholder="Buscar receta o ingrediente…">
+          <select id="recipeCategoryFilter"></select>
+          <select id="recipeTagFilter"></select>
+        </div>
+        <div id="recipeList" class="recipe-list"></div>
+      </section>
+
+      <section id="view-week" class="view">
+        <div class="section-head week-head">
+          <div>
+            <h1>Semana</h1>
+            <p id="weekLabel"></p>
+          </div>
+          <div class="week-nav">
+            <button id="prevWeekBtn" class="secondary-btn">‹</button>
+            <button id="todayWeekBtn" class="secondary-btn">Hoy</button>
+            <button id="nextWeekBtn" class="secondary-btn">›</button>
+          </div>
+        </div>
+
+        <div id="dayTabs" class="day-tabs"></div>
+        <div id="dayPlanner"></div>
+
+        <section class="quick-add-card">
+          <div class="quick-add-title">Añadidos rápidos</div>
+          <div class="quick-add-grid">
+            <button id="addFruitBtn" class="quick-add-btn">🍎 + 1 fruta</button>
+            <button id="addWaterBtn" class="quick-add-btn">💧 + 250 ml</button>
+          </div>
+          <div id="waterToday" class="small muted" style="margin-top:8px"></div>
+        </section>
+
+        <div id="dayMetrics"></div>
+        <div id="weekMetrics"></div>
+
+        <section class="week-actions-card">
+          <div id="weekEditNote" class="small muted"></div>
+        </section>
+      </section>
+
+      <section id="view-matrix" class="view">
+        <div class="section-head">
+          <h1>Matriz</h1>
+          <p>Comparación rápida de las recetas disponibles.</p>
+        </div>
+        <div class="controls sticky-controls">
+          <input id="matrixSearch" class="search" type="search" placeholder="Buscar receta…">
+          <select id="matrixCategoryFilter"></select>
+        </div>
+        <div class="table-wrap">
+          <table id="matrixTable">
+            <thead>
+              <tr>
+                <th>Receta</th>
+                <th>Tipo</th>
+                <th>kcal</th>
+                <th>Prot.</th>
+                <th>Fibra</th>
+                <th>Verdura</th>
+                <th>Tiempo</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button data-view="guide" class="nav-item active"><span>⌂</span><small>Guía</small></button>
+      <button data-view="foods" class="nav-item"><span>🥦</span><small>Alimentos</small></button>
+      <button data-view="recipes" class="nav-item"><span>🍽️</span><small>Recetas</small></button>
+      <button data-view="week" class="nav-item"><span>📅</span><small>Semana</small></button>
+      <button data-view="matrix" class="nav-item"><span>▦</span><small>Matriz</small></button>
+    </nav>
+
+    <div id="drawerBackdrop" class="drawer-backdrop"></div>
+    <aside id="shoppingDrawer" class="drawer" aria-hidden="true">
+      <div class="drawer-head">
+        <div>
+          <h2>Lista de compra</h2>
+          <p>Temporal y guardada en este dispositivo.</p>
+        </div>
+        <button id="closeShoppingBtn" class="icon-btn">✕</button>
+      </div>
+      <div class="drawer-actions">
+        <button id="undoShoppingBtn" class="secondary-btn" disabled>Deshacer</button>
+        <button id="clearShoppingBtn" class="danger-btn">Vaciar</button>
+      </div>
+      <div id="shoppingList"></div>
+    </aside>
+
+    <aside id="settingsDrawer" class="drawer settings-drawer" aria-hidden="true">
+      <div class="drawer-head">
+        <div>
+          <h2>Datos y versiones</h2>
+          <p>Actualiza catálogo, reglas o realiza copias de seguridad.</p>
+        </div>
+        <button id="closeSettingsBtn" class="icon-btn">✕</button>
+      </div>
+
+      <div class="settings-block">
+        <div class="settings-label">Catálogo instalado</div>
+        <div id="catalogVersionLabel" class="settings-value"></div>
+        <input id="catalogFileInput" type="file" accept=".json,application/json" hidden>
+        <button id="importCatalogBtn" class="secondary-btn full">Importar catálogo</button>
+      </div>
+
+      <div class="settings-block">
+        <div class="settings-label">Reglas instaladas</div>
+        <div id="rulesVersionLabel" class="settings-value"></div>
+        <input id="rulesFileInput" type="file" accept=".json,application/json" hidden>
+        <button id="importRulesBtn" class="secondary-btn full">Importar reglas</button>
+      </div>
+
+      <div class="settings-block">
+        <button id="exportBackupBtn" class="primary-btn full">Exportar copia de seguridad</button>
+        <input id="backupFileInput" type="file" accept=".json,application/json" hidden>
+        <button id="importBackupBtn" class="secondary-btn full" style="margin-top:8px">Importar copia de seguridad</button>
+      </div>
+
+      <div class="settings-block">
+        <div class="settings-label">Aplicación</div>
+        <div id="pwaStatus" class="small muted">Comprobando disponibilidad offline…</div>
+        <button id="checkUpdateBtn" class="secondary-btn full" style="margin-top:8px">Buscar actualización</button>
+      </div>
+
+      <div class="settings-block">
+        <div class="settings-label">Notas</div>
+        <div class="small muted">
+          Las semanas pasadas siguen siendo editables y conservan sus valores históricos. La semana actual y las futuras usan catálogo y reglas vigentes.
+        </div>
+      </div>
+    </aside>
+
+    <div id="modalBackdrop" class="modal-backdrop"></div>
+    <div id="addRecipeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-card picker-card">
+        <div class="modal-head">
+          <h2 id="modalTitle">Añadir al calendario</h2>
+          <button id="closeModalBtn" class="icon-btn">✕</button>
+        </div>
+
+        <div class="picker-controls">
+          <input id="modalRecipeSearch" class="search" type="search" placeholder="Buscar receta o ingrediente…">
+          <select id="modalRecipeSelect"></select>
+        </div>
+
+        <div id="modalRecipeName" class="modal-recipe-name"></div>
+
+        <div class="modal-grid">
+          <label>Día
+            <select id="modalDay"></select>
+          </label>
+          <label>Momento
+            <select id="modalSlot">
+              <option value="desayuno">Desayuno</option>
+              <option value="media_manana">Media mañana</option>
+              <option value="comida" selected>Comida</option>
+              <option value="merienda">Merienda</option>
+              <option value="cena">Cena</option>
+              <option value="extra">Extra</option>
+            </select>
+          </label>
+        </div>
+
+        <label>Ración
+          <select id="modalServings">
+            <option value="0.5">½ ración</option>
+            <option value="1" selected>1 ración</option>
+            <option value="1.5">1½ raciones</option>
+            <option value="2">2 raciones</option>
+          </select>
+        </label>
+
+        <div id="modalRecipePreview" class="picker-preview"></div>
+        <button id="confirmAddRecipeBtn" class="primary-btn full">Añadir</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

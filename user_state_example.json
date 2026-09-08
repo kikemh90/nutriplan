@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 2,
+  "shoppingList": [],
+  "water": {},
+  "weeks": {
+    "2026-W37": {
+      "status": "active",
+      "startDate": "2026-09-07",
+      "days": {
+        "2026-09-07": {
+          "entries": [
+            {
+              "slot": "comida",
+              "recipeId": "lentils_chicken",
+              "servings": 1
+            }
+          ]
+        }
+      }
+    },
+    "2026-W36": {
+      "status": "closed",
+      "startDate": "2026-08-31",
+      "closedAt": "2026-09-07T00:01:00Z",
+      "rulesVersion": "2026.09.07-v1",
+      "days": {
+        "2026-09-01": {
+          "entries": [
+            {
+              "slot": "cena",
+              "recipeId": "salmon_sweetpotato",
+              "servings": 1,
+              "snapshot": {
+                "recipeId": "salmon_sweetpotato",
+                "recipeVersion": 1,
+                "recipeName": "Salmón con batata y espárragos",
+                "servings": 1,
+                "nutrition": {
+                  "calories": 570,
+                  "proteinG": 36,
+                  "carbsG": 45,
+                  "fatG": 26,
+                  "fiberG": 9,
+                  "vegetablesG": 200,
+                  "fruitServings": 0
+                },
+                "weeklyMetadata": {
+                  "fishServings": 1,
+                  "priorityOilyFishServings": 1,
+                  "seafoodServings": 0,
+                  "legumeServings": 0,
+                  "redMeatServings": 0,
+                  "poultryServings": 0,
+                  "eggUnits": 0,
+                  "nutsServings": 0
+                }
+              }
+            }
+          ]
+        }
+      },
+      "originalAssessment": {}
+    }
+  }
+}

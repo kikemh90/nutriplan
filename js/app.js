@@ -15,6 +15,8 @@ const state = {
   user:null,
   recipeById:new Map(),
   currentWeekStart:startOfWeek(new Date()),
+  currentMonthStart:startOfMonth(new Date()),
+  calendarMode:"week",
   selectedDayIndex:0,
   modalRecipeId:null,
   modalPresetSlot:null,
@@ -84,6 +86,8 @@ function startOfWeek(d){
   const day=(x.getDay()+6)%7; x.setDate(x.getDate()-day); return x;
 }
 function addDays(d,n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
+function startOfMonth(d){ const x=new Date(d); x.setHours(12,0,0,0); x.setDate(1); return x; }
+function addMonths(d,n){ const x=startOfMonth(d); x.setMonth(x.getMonth()+n); return x; }
 function dateKey(d){ return d.toISOString().slice(0,10); }
 function formatShort(d){ return new Intl.DateTimeFormat("es-ES",{weekday:"short",day:"numeric"}).format(d); }
 function formatWeek(d){
@@ -147,6 +151,12 @@ function wireGlobalActions(){
   document.getElementById("todayWeekBtn").onclick=()=>{
     state.currentWeekStart=startOfWeek(new Date()); state.selectedDayIndex=0; ensureActiveWeek(); renderWeek();
   };
+
+  document.getElementById("weekViewBtn").onclick=()=>setCalendarMode("week");
+  document.getElementById("monthViewBtn").onclick=()=>setCalendarMode("month");
+  document.getElementById("prevMonthBtn").onclick=()=>{state.currentMonthStart=addMonths(state.currentMonthStart,-1);renderMonth()};
+  document.getElementById("nextMonthBtn").onclick=()=>{state.currentMonthStart=addMonths(state.currentMonthStart,1);renderMonth()};
+  document.getElementById("todayMonthBtn").onclick=()=>{state.currentMonthStart=startOfMonth(new Date());renderMonth()};
 
   document.getElementById("closeModalBtn").onclick=closeModal;
   document.getElementById("modalBackdrop").onclick=closeModal;
@@ -421,6 +431,12 @@ function changeWeek(delta){
 }
 function renderWeek(){
   const week=currentWeek();
+  if(document.getElementById("weekModeContent")){
+    document.getElementById("weekModeContent").hidden=state.calendarMode!=="week";
+    document.getElementById("monthModeContent").hidden=state.calendarMode!=="month";
+    document.getElementById("weekViewBtn").classList.toggle("active",state.calendarMode==="week");
+    document.getElementById("monthViewBtn").classList.toggle("active",state.calendarMode==="month");
+  }
   const relation=weekRelation(state.currentWeekStart);
   document.getElementById("view-week").classList.remove("locked-week");
   const badge=relation==="past" ? ' <span class="history-badge">Pasada · editable</span>' :
@@ -428,7 +444,15 @@ function renderWeek(){
   document.getElementById("weekLabel").innerHTML=formatWeek(state.currentWeekStart)+badge;
   document.getElementById("dayTabs").innerHTML=Array.from({length:7},(_,i)=>{
     const d=addDays(state.currentWeekStart,i);
-    return `<button class="day-tab ${i===state.selectedDayIndex?"active":""}" data-day="${i}"><strong>${new Intl.DateTimeFormat("es-ES",{weekday:"short"}).format(d).replace(".","")}</strong><small>${d.getDate()}</small></button>`;
+    const dk=dateKey(d);
+    const day=week.days?.[dk];
+    const status=dayCalorieStatus(day,week);
+    const dot=status==="incomplete" ? "" : `<span class="day-status-dot ${status}" aria-label="${calorieStatusText(status)}"></span>`;
+    return `<button class="day-tab ${i===state.selectedDayIndex?"active":""}" data-day="${i}">
+      <strong>${new Intl.DateTimeFormat("es-ES",{weekday:"short"}).format(d).replace(".","")}</strong>
+      <small>${d.getDate()}</small>
+      ${dot}
+    </button>`;
   }).join("");
   document.querySelectorAll("[data-day]").forEach(btn=>btn.onclick=()=>{state.selectedDayIndex=Number(btn.dataset.day);renderWeek()});
   renderDayPlanner(week);
@@ -446,12 +470,14 @@ function renderDayPlanner(week){
   const dk=currentDayKey(), day=week.days[dk]||{entries:[],complete:false};
   const html=SLOT_ORDER.map(slot=>{
     const entries=(day.entries||[]).map((e,i)=>({...e,_i:i})).filter(e=>e.slot===slot);
+    const waterHtml=slot==="extra" ? waterExtraHtml(dk) : "";
+    const content=entries.map(e=>planEntryHtml(e)).join("") + waterHtml;
     return `<section class="slot">
       <div class="slot-head">
         <div class="slot-title">${SLOT_LABELS[slot]}</div>
         <button class="slot-add" data-slot-add="${slot}">＋</button>
       </div>
-      ${entries.map(e=>planEntryHtml(e)).join("") || `<div class="small muted">Sin añadir</div>`}
+      ${content || `<div class="small muted">Sin añadir</div>`}
     </section>`;
   }).join("");
   document.getElementById("dayPlanner").innerHTML=html+
@@ -462,8 +488,12 @@ function renderDayPlanner(week){
   document.querySelectorAll("[data-slot-add]").forEach(btn=>btn.onclick=()=>openRecipePickerForSlot(btn.dataset.slot));
   document.querySelectorAll("[data-remove-entry]").forEach(btn=>btn.onclick=()=>removeEntry(Number(btn.dataset.removeEntry)));
   document.querySelectorAll("[data-entry-servings]").forEach(sel=>sel.onchange=()=>updateEntryServings(Number(sel.dataset.entryServings),Number(sel.value)));
+  document.querySelectorAll("[data-water-change]").forEach(btn=>btn.onclick=()=>changeWater(Number(btn.dataset.waterChange)));
   document.getElementById("dayCompleteToggle").onchange=e=>{
-    week.days[dk].complete=e.target.checked;saveUser();renderDayMetrics(week);renderWeekMetrics(week);
+    week.days[dk].complete=e.target.checked;
+    saveUser();
+    renderWeek();
+    if(state.calendarMode==="month") renderMonth();
   };
 }
 function planEntryHtml(e){
@@ -508,7 +538,7 @@ function renderDayMetrics(week){
   const total=sumResolvedEntries(day.entries||[],state.recipeById,{historical:true});
   const simpleFruit=(day.entries||[]).filter(e=>e.type==="simple"&&e.simpleType==="fruit").length;
   total.fruitServings += simpleFruit;
-  const complete=day.complete||inferDayComplete(day);
+  const complete=day.complete===true;
   const result=assessDaily(total,effectiveRulesForWeek(week),{complete});
   const metrics=[
     ["Energía",`${Math.round(total.calories)} kcal`,result.metrics.calories],
@@ -580,16 +610,35 @@ function addFruitServing(){
   saveUser();renderWeek();
 }
 function addWater(){
-  const week=currentWeek();
+  changeWater(250);
+}
+function changeWater(delta){
   state.user.water ||= {};
   const dk=currentDayKey();
-  state.user.water[dk]=Number(state.user.water[dk]||0)+250;
-  saveUser();renderWaterToday();renderDayMetrics(week);
+  state.user.water[dk]=Math.max(0,Number(state.user.water[dk]||0)+delta);
+  if(state.user.water[dk]===0) delete state.user.water[dk];
+  saveUser();
+  renderWeek();
 }
-function renderWaterToday(){
-  const ml=Number(state.user.water?.[currentDayKey()]||0);
-  document.getElementById("waterToday").textContent=`Agua registrada hoy: ${(ml/1000).toFixed(2).replace(".",",")} L`;
+function waterExtraHtml(dk){
+  const ml=Number(state.user.water?.[dk]||0);
+  if(ml<=0) return "";
+  return `<div class="plan-entry water-entry">
+    <div class="plan-entry-body">
+      <div class="plan-entry-name">💧 Agua</div>
+      <div class="plan-entry-meta">${formatWater(ml)}</div>
+    </div>
+    <div class="water-actions">
+      <button class="water-step-btn" data-water-change="-250" type="button">−250</button>
+      <button class="water-step-btn" data-water-change="250" type="button">+250</button>
+    </div>
+  </div>`;
 }
+function formatWater(ml){
+  if(ml>=1000) return `${(ml/1000).toFixed(ml%1000===0?0:2).replace(".",",")} L`;
+  return `${ml} ml`;
+}
+function renderWaterToday(){}
 
 function openSettings(){
   renderSettingsInfo();
@@ -723,6 +772,100 @@ function downloadJson(data,filename){
   const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
   const url=URL.createObjectURL(blob),a=document.createElement("a");
   a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);
+}
+
+
+function getDayTotal(day){
+  const total=sumResolvedEntries(day?.entries||[],state.recipeById,{historical:true});
+  const simpleFruit=(day?.entries||[]).filter(e=>e.type==="simple"&&e.simpleType==="fruit").length;
+  total.fruitServings += simpleFruit;
+  return total;
+}
+function classifyCalories(calories,rules){
+  const c=rules.daily.calories;
+  if(calories>=c.targetMin && calories<=c.targetMax) return "good";
+  if(calories>=c.softLow && calories<=c.softHigh) return "near";
+  return "attention";
+}
+function dayCalorieStatus(day,week){
+  if(!day || day.complete!==true) return "incomplete";
+  return classifyCalories(getDayTotal(day).calories,effectiveRulesForWeek(week));
+}
+function calorieStatusText(status){
+  return {good:"Dentro de rango",near:"Cerca del rango",attention:"Fuera de rango",incomplete:"No completado"}[status]||"";
+}
+function setCalendarMode(mode){
+  state.calendarMode=mode;
+  document.getElementById("weekViewBtn").classList.toggle("active",mode==="week");
+  document.getElementById("monthViewBtn").classList.toggle("active",mode==="month");
+  document.getElementById("weekModeContent").hidden=mode!=="week";
+  document.getElementById("monthModeContent").hidden=mode!=="month";
+  if(mode==="month"){
+    state.currentMonthStart=startOfMonth(addDays(state.currentWeekStart,state.selectedDayIndex));
+    renderMonth();
+  }else{
+    renderWeek();
+  }
+}
+function findWeekForDate(date){
+  const ws=startOfWeek(date);
+  return state.user.weeks?.[weekKey(ws)] || null;
+}
+function findDayForDate(date){
+  const week=findWeekForDate(date);
+  return {week,day:week?.days?.[dateKey(date)]||null};
+}
+function renderMonth(){
+  const monthStart=startOfMonth(state.currentMonthStart);
+  const year=monthStart.getFullYear();
+  const month=monthStart.getMonth();
+  document.getElementById("monthTitle").textContent=
+    new Intl.DateTimeFormat("es-ES",{month:"long",year:"numeric"}).format(monthStart);
+
+  const firstGrid=startOfWeek(monthStart);
+  const lastDate=new Date(year,month+1,0,12);
+  const lastGrid=addDays(startOfWeek(lastDate),6);
+  const cells=[];
+  const stats={good:0,near:0,attention:0,complete:0,calories:0};
+
+  for(let d=new Date(firstGrid); d<=lastGrid; d=addDays(d,1)){
+    const inMonth=d.getMonth()===month;
+    const {week,day}=findDayForDate(d);
+    const status=week ? dayCalorieStatus(day,week) : "incomplete";
+    const isComplete=day?.complete===true;
+    if(inMonth && isComplete && week){
+      stats.complete++;
+      stats[status]++;
+      stats.calories+=getDayTotal(day).calories;
+    }
+    const dot=status==="incomplete" ? "" : `<span class="month-status-dot ${status}"></span>`;
+    cells.push(`<button class="month-day ${inMonth?"":"outside"} ${isComplete?"complete":""}" data-month-date="${dateKey(d)}" type="button">
+      <span class="month-day-number">${d.getDate()}</span>
+      ${dot}
+    </button>`);
+  }
+  document.getElementById("monthGrid").innerHTML=cells.join("");
+  document.querySelectorAll("[data-month-date]").forEach(btn=>btn.onclick=()=>openDateFromMonth(btn.dataset.monthDate));
+
+  const avg=stats.complete?Math.round(stats.calories/stats.complete):0;
+  document.getElementById("monthSummary").innerHTML=`
+    <section class="summary-card">
+      <h3>Resumen del mes</h3>
+      <div class="month-summary-grid">
+        <div class="month-stat"><span>Días registrados</span><strong>${stats.complete}</strong></div>
+        <div class="month-stat good"><span>Dentro de rango</span><strong>${stats.good}</strong></div>
+        <div class="month-stat near"><span>Cerca</span><strong>${stats.near}</strong></div>
+        <div class="month-stat attention"><span>Fuera</span><strong>${stats.attention}</strong></div>
+      </div>
+      <div class="month-average">${stats.complete?`Media de días completos: <strong>≈${avg} kcal</strong>`:"Todavía no hay días completos en este mes."}</div>
+    </section>`;
+}
+function openDateFromMonth(isoDate){
+  const d=new Date(`${isoDate}T12:00:00`);
+  state.currentWeekStart=startOfWeek(d);
+  state.selectedDayIndex=(d.getDay()+6)%7;
+  ensureActiveWeek();
+  setCalendarMode("week");
 }
 
 function renderMatrixFilters(){

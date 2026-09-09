@@ -1,5 +1,5 @@
 
-const CACHE_VERSION = "nutriplan-pwa-v1.2";
+const CACHE_VERSION = "nutriplan-pwa-v1.3";
 const APP_SHELL = [
   "./",
   "./index.html",

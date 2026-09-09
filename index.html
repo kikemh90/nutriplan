@@ -63,36 +63,72 @@
       </section>
 
       <section id="view-week" class="view">
-        <div class="section-head week-head">
-          <div>
-            <h1>Semana</h1>
-            <p id="weekLabel"></p>
-          </div>
-          <div class="week-nav">
-            <button id="prevWeekBtn" class="secondary-btn">‹</button>
-            <button id="todayWeekBtn" class="secondary-btn">Hoy</button>
-            <button id="nextWeekBtn" class="secondary-btn">›</button>
-          </div>
+        <div class="calendar-view-toggle" role="tablist" aria-label="Vista del calendario">
+          <button id="weekViewBtn" class="calendar-toggle-btn active" type="button">Semana</button>
+          <button id="monthViewBtn" class="calendar-toggle-btn" type="button">Mes</button>
         </div>
 
-        <div id="dayTabs" class="day-tabs"></div>
-        <div id="dayPlanner"></div>
-
-        <section class="quick-add-card">
-          <div class="quick-add-title">Añadidos rápidos</div>
-          <div class="quick-add-grid">
-            <button id="addFruitBtn" class="quick-add-btn">🍎 + 1 fruta</button>
-            <button id="addWaterBtn" class="quick-add-btn">💧 + 250 ml</button>
+        <div id="weekModeContent">
+          <div class="section-head week-head">
+            <div>
+              <h1>Semana</h1>
+              <p id="weekLabel"></p>
+            </div>
+            <div class="week-nav">
+              <button id="prevWeekBtn" class="secondary-btn">‹</button>
+              <button id="todayWeekBtn" class="secondary-btn">Hoy</button>
+              <button id="nextWeekBtn" class="secondary-btn">›</button>
+            </div>
           </div>
-          <div id="waterToday" class="small muted" style="margin-top:8px"></div>
-        </section>
 
-        <div id="dayMetrics"></div>
-        <div id="weekMetrics"></div>
+          <div id="dayTabs" class="day-tabs"></div>
+          <div id="dayPlanner"></div>
 
-        <section class="week-actions-card">
-          <div id="weekEditNote" class="small muted"></div>
-        </section>
+          <section class="quick-add-card">
+            <div class="quick-add-title">Añadidos rápidos</div>
+            <div class="quick-add-grid">
+              <button id="addFruitBtn" class="quick-add-btn">🍎 + 1 fruta</button>
+              <button id="addWaterBtn" class="quick-add-btn">💧 + 250 ml</button>
+            </div>
+          </section>
+
+          <div id="dayMetrics"></div>
+          <div id="weekMetrics"></div>
+
+          <section class="week-actions-card">
+            <div id="weekEditNote" class="small muted"></div>
+          </section>
+        </div>
+
+        <div id="monthModeContent" hidden>
+          <div class="section-head month-head">
+            <div>
+              <h1>Mes</h1>
+              <p>Visión de consistencia calórica de los días completados.</p>
+            </div>
+            <div class="week-nav">
+              <button id="prevMonthBtn" class="secondary-btn">‹</button>
+              <button id="todayMonthBtn" class="secondary-btn">Hoy</button>
+              <button id="nextMonthBtn" class="secondary-btn">›</button>
+            </div>
+          </div>
+
+          <section class="summary-card month-calendar-card">
+            <div id="monthTitle" class="month-title"></div>
+            <div class="month-weekdays" aria-hidden="true">
+              <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+            </div>
+            <div id="monthGrid" class="month-grid"></div>
+          </section>
+
+          <div id="monthSummary"></div>
+
+          <section class="week-actions-card">
+            <div class="small muted">
+              Solo los días marcados manualmente como completos reciben color. Pulsa un día para abrirlo y editarlo en la vista semanal.
+            </div>
+          </section>
+        </div>
       </section>
 
       <section id="view-matrix" class="view">

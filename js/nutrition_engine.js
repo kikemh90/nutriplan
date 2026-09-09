@@ -73,16 +73,14 @@ export function assessDaily(total, rules, {complete=true}={}) {
 }
 
 export function inferDayComplete(day) {
-  if (typeof day?.complete === "boolean") return day.complete;
-  const slots = new Set((day?.entries || []).map(e => e.slot));
-  return slots.has("comida") && slots.has("cena");
+  return day?.complete === true;
 }
 
 export function assessWeekObject(week, recipeById, rules, {historical=false}={}) {
   const rows = [];
   for (const [date, day] of Object.entries(week.days || {})) {
     const total = sumResolvedEntries(day.entries || [], recipeById, {historical});
-    const complete = historical ? true : inferDayComplete(day);
+    const complete = inferDayComplete(day);
     rows.push({date, total, complete});
   }
   return assessWeekly(rows, rules, {historical});

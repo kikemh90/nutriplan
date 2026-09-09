@@ -175,3 +175,53 @@ th{position:sticky;top:0;background:#f0f4ef;z-index:1}
 
 .history-badge{white-space:nowrap}
 .week-actions-card{background:transparent;border-style:dashed}
+
+.calendar-view-toggle{
+  display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--surface-2);
+  border:1px solid var(--line);border-radius:14px;padding:4px;margin:4px 0 14px
+}
+.calendar-toggle-btn{
+  border:0;background:transparent;color:var(--muted);padding:9px 12px;border-radius:10px;font-weight:750
+}
+.calendar-toggle-btn.active{background:var(--surface);color:var(--accent);box-shadow:0 2px 8px rgba(25,45,35,.06)}
+.day-tab{position:relative}
+.day-status-dot{
+  display:block;width:8px;height:8px;border-radius:50%;margin:5px auto 0;
+  box-shadow:0 0 0 2px rgba(255,255,255,.55)
+}
+.day-status-dot.good,.month-status-dot.good{background:var(--good)}
+.day-status-dot.near,.month-status-dot.near{background:#d59414}
+.day-status-dot.attention,.month-status-dot.attention{background:var(--attention)}
+.day-tab.active .day-status-dot{box-shadow:0 0 0 2px rgba(255,255,255,.85)}
+.water-entry{align-items:center}
+.water-actions{display:flex;gap:5px}
+.water-step-btn{
+  border:1px solid var(--line);background:var(--surface-2);color:var(--accent);
+  border-radius:10px;padding:6px 8px;font-size:11px;font-weight:800
+}
+.month-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.month-calendar-card{padding:12px}
+.month-title{text-align:center;font-size:17px;font-weight:800;text-transform:capitalize;margin:2px 0 14px}
+.month-weekdays,.month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.month-weekdays{margin-bottom:5px}
+.month-weekdays span{text-align:center;font-size:10px;font-weight:800;color:var(--muted);padding:4px}
+.month-day{
+  min-height:48px;border:0;background:transparent;border-radius:12px;padding:5px 3px;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px;color:var(--text)
+}
+.month-day:hover{background:var(--surface-2)}
+.month-day.outside{opacity:.28}
+.month-day-number{font-size:12px;font-weight:700}
+.month-status-dot{display:block;width:9px;height:9px;border-radius:50%}
+.month-summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.month-stat{background:var(--surface-2);border-radius:13px;padding:10px}
+.month-stat span{display:block;font-size:10px;color:var(--muted)}
+.month-stat strong{display:block;font-size:20px;margin-top:3px}
+.month-stat.good strong{color:var(--good)}
+.month-stat.near strong{color:#b97700}
+.month-stat.attention strong{color:var(--attention)}
+.month-average{margin-top:10px;font-size:12px;color:var(--muted)}
+@media(min-width:720px){
+  .month-summary-grid{grid-template-columns:repeat(4,1fr)}
+  .month-day{min-height:62px}
+}

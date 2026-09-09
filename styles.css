@@ -126,12 +126,17 @@ th{position:sticky;top:0;background:#f0f4ef;z-index:1}
 .guide-list{margin:0;padding-left:18px}
 .guide-list li{margin:7px 0;font-size:13px;line-height:1.4}
 .modal{
-  position:fixed;inset:0;z-index:80;display:flex;align-items:flex-end;justify-content:center;pointer-events:none
+  position:fixed;inset:0;z-index:80;display:flex;align-items:flex-end;justify-content:center;
+  pointer-events:none;visibility:hidden;opacity:0;
+  transition:opacity .18s ease,visibility 0s linear .18s
 }
-.modal.open{pointer-events:auto}
+.modal.open{
+  pointer-events:auto;visibility:visible;opacity:1;
+  transition:opacity .18s ease
+}
 .modal-card{
   width:100%;max-width:520px;background:var(--surface);border-radius:22px 22px 0 0;padding:18px 16px calc(18px + var(--safe-bottom));
-  transform:translateY(105%);transition:.22s;box-shadow:0 -20px 60px rgba(20,35,25,.18)
+  transform:translateY(105%);transition:transform .22s ease;box-shadow:0 -20px 60px rgba(20,35,25,.18)
 }
 .modal.open .modal-card{transform:translateY(0)}
 .modal-card label{display:block;font-size:12px;font-weight:700;margin:12px 0}

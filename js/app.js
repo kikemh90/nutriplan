@@ -367,7 +367,10 @@ function metricBox(l,v){return `<div class="metric-box"><div class="label">${l}<
 
 function openRecipeModal(recipeId=null, presetDay=null, presetSlot=null){
   state.modalRecipeId=recipeId || state.catalog.recipes[0]?.id || null;
-  state.modalPresetSlot=presetSlot || "comida";
+
+  // Preserve the exact planner slot the user clicked.
+  // Only fall back to "comida" when opening from the general Recipes section.
+  state.modalPresetSlot = presetSlot ?? "comida";
 
   const opts=[];
   for(let i=0;i<7;i++){
@@ -375,11 +378,15 @@ function openRecipeModal(recipeId=null, presetDay=null, presetSlot=null){
     opts.push(`<option value="${i}" ${i===(presetDay??state.selectedDayIndex)?"selected":""}>${new Intl.DateTimeFormat("es-ES",{weekday:"long",day:"numeric"}).format(d)}</option>`);
   }
   document.getElementById("modalDay").innerHTML=opts.join("");
-  document.getElementById("modalSlot").value=state.modalPresetSlot;
-  document.getElementById("modalServings").value="1";
+
   document.getElementById("modalRecipeSearch").value="";
   renderModalRecipeOptions();
   renderModalRecipePreview();
+
+  // Set "Momento" after rendering the recipe options to avoid any later
+  // initialization path restoring the default "comida".
+  document.getElementById("modalSlot").value=state.modalPresetSlot;
+  document.getElementById("modalServings").value="1";
 
   document.getElementById("addRecipeModal").classList.add("open");
   document.getElementById("modalBackdrop").classList.add("open");

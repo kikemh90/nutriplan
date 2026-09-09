@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NutriPlan catalog schema v2",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "catalogVersion",
+    "foods",
+    "recipes"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 2
+    },
+    "catalogVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "foods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "version",
+          "name",
+          "group",
+          "classification",
+          "portion",
+          "description",
+          "tags"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_\\-]+$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "group": {
+            "type": "string"
+          },
+          "classification": {
+            "type": "string"
+          },
+          "portion": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "recipes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "version",
+          "name",
+          "category",
+          "ingredients",
+          "preparation",
+          "nutrition",
+          "weeklyMetadata"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_\\-]+$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ingredients": {
+            "type": "array"
+          },
+          "preparation": {
+            "type": "string"
+          },
+          "nutrition": {
+            "type": "object"
+          },
+          "weeklyMetadata": {
+            "type": "object"
+          },
+          "timeMinutes": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "freezable": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    }
+  }
+}

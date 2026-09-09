@@ -1,0 +1,43 @@
+{
+  "validatedAt": "2026-09-07",
+  "testsPassed": 12,
+  "testsFailed": 0,
+  "scenarios": {
+    "balancedWeek": {
+      "averageCalories": 1964,
+      "averageProteinG": 120,
+      "averageFiberG": 29.6,
+      "averageVegetablesG": 374,
+      "averageFruitServings": 2.1,
+      "fishServings": 3,
+      "priorityOilyFishServings": 2,
+      "seafoodServings": 2,
+      "legumeServings": 4,
+      "redMeatServings": 2,
+      "nutsServings": 4,
+      "expected": "good"
+    },
+    "lowVarietyWeek": {
+      "averageCalories": 1950,
+      "averageProteinG": 118,
+      "averageFiberG": 24,
+      "averageVegetablesG": 270,
+      "averageFruitServings": 1,
+      "fishServings": 1,
+      "priorityOilyFishServings": 0,
+      "seafoodServings": 0,
+      "legumeServings": 1,
+      "redMeatServings": 3,
+      "nutsServings": 0,
+      "expected": "mixed_attention"
+    },
+    "highWeekendWeek": {
+      "averageCalories": 2186,
+      "averageProteinG": 114,
+      "averageFiberG": 26.6,
+      "averageVegetablesG": 284,
+      "averageFruitServings": 1.6,
+      "expected": "near_attention"
+    }
+  }
+}

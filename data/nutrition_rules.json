@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 2,
+  "rulesVersion": "2026.09.07-v2",
+  "daily": {
+    "calories": {
+      "targetMin": 1800,
+      "targetMax": 2100,
+      "softLow": 1650,
+      "softHigh": 2300
+    },
+    "proteinG": {
+      "goodMin": 105,
+      "nearMin": 90
+    },
+    "fiberG": {
+      "goodMin": 25,
+      "nearMin": 20
+    },
+    "vegetablesG": {
+      "goodMin": 300,
+      "nearMin": 200
+    },
+    "fruitServings": {
+      "goodMin": 2,
+      "nearMin": 1
+    },
+    "waterMl": {
+      "goodMin": 1500,
+      "nearMin": 1000
+    }
+  },
+  "weekly": {
+    "fishServings": {
+      "min": 3
+    },
+    "priorityOilyFishServings": {
+      "min": 2
+    },
+    "seafoodServings": {
+      "min": 1
+    },
+    "legumeServings": {
+      "min": 4
+    },
+    "redMeatServings": {
+      "max": 2
+    },
+    "nutsServings": {
+      "min": 4
+    }
+  },
+  "policy": {
+    "useRecipeMidpointsForCalculation": true,
+    "showRangesToUser": true,
+    "doNotFlagIncompleteDays": true,
+    "carbsAndFatAreInformationalOnly": true,
+    "vegetableUpperIntakeDoesNotTriggerWarning": true,
+    "fruitAboveMinimumDoesNotTriggerWarning": true,
+    "weeklyBalanceHasPriorityOverSingleDayPerfection": true,
+    "historicalWeeksAreImmutableByDefault": true,
+    "currentAndFutureWeeksUseLatestCatalog": true,
+    "currentAndFutureWeeksUseLatestRules": true,
+    "historicalReevaluationIsOptionalAndNonDestructive": true
+  }
+}

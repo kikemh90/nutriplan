@@ -1,0 +1,4762 @@
+{
+  "schemaVersion": 2,
+  "catalogVersion": "2026.09.07-v2",
+  "name": "NutriPlan - catálogo nutricional",
+  "description": "Catálogo editable y versionado. Las semanas activas/futuras usan la versión vigente; las semanas cerradas conservan snapshots nutricionales históricos.",
+  "defaults": {
+    "dailyTargets": {
+      "calories": {
+        "targetMin": 1800,
+        "targetMax": 2100,
+        "softLow": 1650,
+        "softHigh": 2300
+      },
+      "proteinG": {
+        "goodMin": 105,
+        "nearMin": 90
+      },
+      "fiberG": {
+        "goodMin": 25,
+        "nearMin": 20
+      },
+      "vegetablesG": {
+        "goodMin": 300,
+        "nearMin": 200
+      },
+      "fruitServings": {
+        "goodMin": 2,
+        "nearMin": 1
+      },
+      "waterMl": {
+        "goodMin": 1500,
+        "nearMin": 1000
+      }
+    },
+    "weeklyTargets": {
+      "fishServings": {
+        "min": 3
+      },
+      "priorityOilyFishServings": {
+        "min": 2
+      },
+      "seafoodServings": {
+        "min": 1
+      },
+      "legumeServings": {
+        "min": 4
+      },
+      "redMeatServings": {
+        "max": 2
+      },
+      "nutsServings": {
+        "min": 4
+      }
+    }
+  },
+  "foods": [
+    {
+      "id": "onion",
+      "name": "Cebolla",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "50-100 g en recetas",
+      "description": "Base de sofritos y guisos; fibra y compuestos azufrados.",
+      "tags": [
+        "verdura",
+        "sofrito"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "pepper",
+      "name": "Pimiento rojo/verde",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "80-150 g",
+      "description": "Vitamina C y carotenoides; muy versátil.",
+      "tags": [
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "zucchini",
+      "name": "Calabacín",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "150-250 g",
+      "description": "Baja densidad energética, volumen y potasio.",
+      "tags": [
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "carrot",
+      "name": "Zanahoria",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "80-150 g",
+      "description": "Betacaroteno y fibra.",
+      "tags": [
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "leek",
+      "name": "Puerro",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "50-150 g",
+      "description": "Muy útil en guisos, cremas y fondos.",
+      "tags": [
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "tomato",
+      "name": "Tomate",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "100-200 g",
+      "description": "Vitamina C, potasio y licopeno.",
+      "tags": [
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "eggplant",
+      "name": "Berenjena",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "150-250 g",
+      "description": "Fibra y polifenoles; horno, air fryer y guisos.",
+      "tags": [
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "green_beans",
+      "name": "Judías verdes",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "150-250 g",
+      "description": "Fibra, folato y guarnición fácil.",
+      "tags": [
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "spinach",
+      "name": "Espinacas",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "100-200 g cocinadas",
+      "description": "Folato, vitamina K y carotenoides.",
+      "tags": [
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "lettuce",
+      "name": "Lechuga / brotes",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "Ración generosa",
+      "description": "Solución rápida para aumentar vegetales.",
+      "tags": [
+        "verdura",
+        "ensalada"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "pumpkin",
+      "name": "Calabaza",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "150-250 g",
+      "description": "Carotenoides y fibra.",
+      "tags": [
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "asparagus",
+      "name": "Espárragos",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "150-250 g",
+      "description": "Fibra y folato; cocción rápida.",
+      "tags": [
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "mushrooms",
+      "name": "Champiñones / setas",
+      "group": "Verduras y hortalizas",
+      "classification": "Núcleo",
+      "portion": "100-200 g",
+      "description": "Umami, vitaminas B y versatilidad.",
+      "tags": [
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "broccoli",
+      "name": "Brócoli",
+      "group": "Verduras y hortalizas",
+      "classification": "Rotación",
+      "portion": "100-200 g",
+      "description": "Introducción progresiva; no es obligatorio.",
+      "tags": [
+        "verdura",
+        "crucifera"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "lentils",
+      "name": "Lentejas",
+      "group": "Legumbres",
+      "classification": "Núcleo",
+      "portion": "≈60 g secas / 150-180 g cocidas",
+      "description": "Fibra, proteína vegetal, folato, hierro, magnesio y potasio.",
+      "tags": [
+        "legumbre"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "chickpeas",
+      "name": "Garbanzos",
+      "group": "Legumbres",
+      "classification": "Núcleo",
+      "portion": "≈60 g secos / 150-180 g cocidos",
+      "description": "Muy versátiles; guisos, ensaladas y hummus.",
+      "tags": [
+        "legumbre"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "beans",
+      "name": "Alubias / judías",
+      "group": "Legumbres",
+      "classification": "Núcleo",
+      "portion": "≈60 g secas / 150-180 g cocidas",
+      "description": "Fibra y proteína vegetal; buena base de meal-prep.",
+      "tags": [
+        "legumbre"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "peas",
+      "name": "Guisantes verdes",
+      "group": "Legumbres",
+      "classification": "Núcleo",
+      "portion": "80-150 g",
+      "description": "Legumbre fresca/congelada; fácil de incorporar.",
+      "tags": [
+        "legumbre"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "hummus",
+      "name": "Hummus",
+      "group": "Legumbres",
+      "classification": "Rotación",
+      "portion": "30-50 g",
+      "description": "Útil y saciante; controlar cantidad por aceite/tahini.",
+      "tags": [
+        "legumbre",
+        "conveniencia"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "hake",
+      "name": "Merluza",
+      "group": "Pescado",
+      "classification": "Núcleo",
+      "portion": "150-200 g",
+      "description": "Proteína magra; muy fácil en congelado limpio.",
+      "tags": [
+        "pescado",
+        "pescado blanco"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "cod",
+      "name": "Bacalao",
+      "group": "Pescado",
+      "classification": "Núcleo",
+      "portion": "150-200 g",
+      "description": "Proteína, yodo y selenio; vigilar sal si procede.",
+      "tags": [
+        "pescado",
+        "pescado blanco"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "monkfish",
+      "name": "Rape",
+      "group": "Pescado",
+      "classification": "Núcleo",
+      "portion": "150-200 g",
+      "description": "Muy fácil de comer por su espina central.",
+      "tags": [
+        "pescado",
+        "pescado blanco"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "sea_bass",
+      "name": "Lubina",
+      "group": "Pescado",
+      "classification": "Núcleo",
+      "portion": "150-200 g",
+      "description": "Proteína magra; buena para horno/plancha.",
+      "tags": [
+        "pescado",
+        "pescado blanco"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "sea_bream",
+      "name": "Dorada",
+      "group": "Pescado",
+      "classification": "Núcleo",
+      "portion": "150-200 g",
+      "description": "Muy versátil.",
+      "tags": [
+        "pescado",
+        "pescado blanco"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "turbot",
+      "name": "Rodaballo",
+      "group": "Pescado",
+      "classification": "Rotación",
+      "portion": "150-200 g",
+      "description": "Excelente pescado blanco.",
+      "tags": [
+        "pescado",
+        "pescado blanco"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "salmon",
+      "name": "Salmón",
+      "group": "Pescado",
+      "classification": "Núcleo",
+      "portion": "125-175 g",
+      "description": "Pescado azul; EPA/DHA y vitamina D.",
+      "tags": [
+        "pescado",
+        "pescado azul prioritario"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "sardines",
+      "name": "Sardinillas",
+      "group": "Pescado",
+      "classification": "Núcleo",
+      "portion": "90-120 g escurridas",
+      "description": "Omega-3, B12 y calcio si se consumen espinas blandas.",
+      "tags": [
+        "pescado",
+        "pescado azul prioritario",
+        "conserva"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "mackerel",
+      "name": "Caballa",
+      "group": "Pescado",
+      "classification": "Núcleo",
+      "portion": "100-150 g",
+      "description": "Pescado azul, omega-3 y B12.",
+      "tags": [
+        "pescado",
+        "pescado azul prioritario",
+        "conserva"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "light_tuna",
+      "name": "Atún claro",
+      "group": "Pescado",
+      "classification": "Rotación",
+      "portion": "80-150 g escurrido",
+      "description": "Práctico; alternar con especies pequeñas.",
+      "tags": [
+        "pescado",
+        "pescado azul",
+        "conserva"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "bonito",
+      "name": "Bonito del norte",
+      "group": "Pescado",
+      "classification": "Rotación",
+      "portion": "80-150 g escurrido",
+      "description": "Buena proteína; no convertirlo en pescado diario.",
+      "tags": [
+        "pescado",
+        "pescado azul",
+        "conserva"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "shrimp",
+      "name": "Gambas peladas",
+      "group": "Marisco",
+      "classification": "Núcleo",
+      "portion": "150-200 g",
+      "description": "Proteína magra; muy versátiles y rápidas.",
+      "tags": [
+        "marisco",
+        "proteina"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "prawns",
+      "name": "Langostinos",
+      "group": "Marisco",
+      "classification": "Núcleo",
+      "portion": "150-200 g pelados",
+      "description": "Fáciles si vienen cocidos.",
+      "tags": [
+        "marisco",
+        "proteina"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "squid",
+      "name": "Chipirones / calamar limpio",
+      "group": "Marisco",
+      "classification": "Núcleo",
+      "portion": "150-200 g",
+      "description": "Proteína, B12 y selenio; guisos y plancha.",
+      "tags": [
+        "marisco",
+        "cefalopodo"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "cuttlefish",
+      "name": "Sepia limpia",
+      "group": "Marisco",
+      "classification": "Núcleo",
+      "portion": "150-200 g",
+      "description": "Muy rápida; combina con ajo, patata y verduras.",
+      "tags": [
+        "marisco",
+        "cefalopodo"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "mussels",
+      "name": "Mejillones",
+      "group": "Marisco",
+      "classification": "Núcleo",
+      "portion": "120-200 g sin concha",
+      "description": "B12, hierro y selenio; también en conserva.",
+      "tags": [
+        "marisco",
+        "molusco"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "octopus",
+      "name": "Pulpo cocido",
+      "group": "Marisco",
+      "classification": "Rotación",
+      "portion": "120-180 g",
+      "description": "Muy práctico si se compra cocido.",
+      "tags": [
+        "marisco",
+        "molusco"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "clams",
+      "name": "Almejas",
+      "group": "Marisco",
+      "classification": "Rotación",
+      "portion": "100-150 g de carne o como complemento",
+      "description": "B12, hierro y yodo.",
+      "tags": [
+        "marisco",
+        "molusco"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "chicken",
+      "name": "Pechuga de pollo",
+      "group": "Carne, aves y huevos",
+      "classification": "Núcleo",
+      "portion": "120-180 g",
+      "description": "Proteína completa y buena relación proteína/calorías.",
+      "tags": [
+        "ave",
+        "proteina"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "turkey",
+      "name": "Pavo fresco",
+      "group": "Carne, aves y huevos",
+      "classification": "Núcleo",
+      "portion": "120-180 g",
+      "description": "Alternativa magra y fácil.",
+      "tags": [
+        "ave",
+        "proteina"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "eggs",
+      "name": "Huevos",
+      "group": "Carne, aves y huevos",
+      "classification": "Núcleo",
+      "portion": "2-3 unidades según plato",
+      "description": "Proteína completa, colina, B12 y selenio.",
+      "tags": [
+        "huevo",
+        "proteina"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "lean_beef",
+      "name": "Vacuno magro",
+      "group": "Carne, aves y huevos",
+      "classification": "Rotación",
+      "portion": "130-180 g",
+      "description": "Hierro hemo, zinc y B12.",
+      "tags": [
+        "carne roja",
+        "proteina"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "lean_pork",
+      "name": "Lomo / solomillo de cerdo",
+      "group": "Carne, aves y huevos",
+      "classification": "Rotación",
+      "portion": "130-180 g",
+      "description": "Proteína, B1 y zinc; cuenta como carne roja.",
+      "tags": [
+        "carne roja",
+        "proteina"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "potato",
+      "name": "Patata",
+      "group": "Cereales, tubérculos y pan",
+      "classification": "Núcleo",
+      "portion": "200-300 g",
+      "description": "Carbohidrato, potasio y gran saciedad.",
+      "tags": [
+        "carbohidrato"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "sweet_potato",
+      "name": "Batata / boniato",
+      "group": "Cereales, tubérculos y pan",
+      "classification": "Rotación",
+      "portion": "150-250 g",
+      "description": "Carbohidrato, betacaroteno y fácil al microondas.",
+      "tags": [
+        "carbohidrato"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "rice",
+      "name": "Arroz blanco o integral",
+      "group": "Cereales, tubérculos y pan",
+      "classification": "Núcleo",
+      "portion": "50-80 g seco",
+      "description": "Integral aporta más fibra; blanco también es válido.",
+      "tags": [
+        "carbohidrato"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "pasta",
+      "name": "Pasta normal o integral",
+      "group": "Cereales, tubérculos y pan",
+      "classification": "Núcleo",
+      "portion": "60-90 g seca",
+      "description": "Puede formar parte habitual si la receta está equilibrada.",
+      "tags": [
+        "carbohidrato"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "bread",
+      "name": "Pan integral real",
+      "group": "Cereales, tubérculos y pan",
+      "classification": "Núcleo",
+      "portion": "40-80 g",
+      "description": "Útil en desayunos, hamburguesas y cenas rápidas.",
+      "tags": [
+        "carbohidrato"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "oats",
+      "name": "Avena",
+      "group": "Cereales, tubérculos y pan",
+      "classification": "Rotación",
+      "portion": "30-50 g",
+      "description": "Beta-glucanos; útil en desayunos y postres.",
+      "tags": [
+        "carbohidrato"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "wraps",
+      "name": "Tortillas integrales de trigo",
+      "group": "Cereales, tubérculos y pan",
+      "classification": "Rotación",
+      "portion": "1-2 unidades",
+      "description": "Base para fajitas y burritos.",
+      "tags": [
+        "carbohidrato",
+        "conveniencia"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "pizza_base",
+      "name": "Masa/base de pizza",
+      "group": "Cereales, tubérculos y pan",
+      "classification": "Rotación",
+      "portion": "≈140-160 g por pizza individual",
+      "description": "Permite pizza casera controlando toppings.",
+      "tags": [
+        "carbohidrato",
+        "conveniencia"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "seasonal_fruit",
+      "name": "Fruta fresca de temporada",
+      "group": "Fruta",
+      "classification": "Núcleo",
+      "portion": "120-200 g / pieza mediana",
+      "description": "Objetivo habitual 2-3 raciones al día.",
+      "tags": [
+        "fruta"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "berries",
+      "name": "Frutos rojos",
+      "group": "Fruta",
+      "classification": "Rotación",
+      "portion": "100-150 g",
+      "description": "Fibra y polifenoles; útiles con lácteos.",
+      "tags": [
+        "fruta"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "milk",
+      "name": "Leche desnatada / semidesnatada",
+      "group": "Lácteos",
+      "classification": "Núcleo",
+      "portion": "100-250 ml",
+      "description": "Calcio, yodo y proteína.",
+      "tags": [
+        "lacteo"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "natural_yogurt",
+      "name": "Yogur natural",
+      "group": "Lácteos",
+      "classification": "Núcleo",
+      "portion": "125-250 g",
+      "description": "Lácteo sencillo y versátil.",
+      "tags": [
+        "lacteo"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "kefir",
+      "name": "Kéfir",
+      "group": "Lácteos",
+      "classification": "Rotación",
+      "portion": "150-250 ml",
+      "description": "Alternativa fermentada.",
+      "tags": [
+        "lacteo"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "skyr",
+      "name": "Skyr",
+      "group": "Lácteos",
+      "classification": "Núcleo",
+      "portion": "150-200 g",
+      "description": "Alta densidad proteica.",
+      "tags": [
+        "lacteo",
+        "proteina"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "quark",
+      "name": "Queso fresco batido desgrasado",
+      "group": "Lácteos",
+      "classification": "Núcleo",
+      "portion": "150-250 g",
+      "description": "Excelente base de postres proteicos.",
+      "tags": [
+        "lacteo",
+        "proteina"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "protein_yogurt",
+      "name": "Yogur / pudding alto en proteína",
+      "group": "Lácteos",
+      "classification": "Rotación",
+      "portion": "1 unidad",
+      "description": "Herramienta práctica; valores dependen de marca.",
+      "tags": [
+        "lacteo",
+        "proteina",
+        "conveniencia"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "mozzarella",
+      "name": "Mozzarella",
+      "group": "Lácteos",
+      "classification": "Rotación",
+      "portion": "40-60 g",
+      "description": "Útil en pizza; medir por densidad energética.",
+      "tags": [
+        "lacteo"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "nuts",
+      "name": "Frutos secos variados",
+      "group": "Frutos secos y grasas",
+      "classification": "Núcleo",
+      "portion": "20-30 g",
+      "description": "Grasas insaturadas, magnesio, fibra.",
+      "tags": [
+        "frutos secos",
+        "grasa"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "evoo",
+      "name": "AOVE",
+      "group": "Frutos secos y grasas",
+      "classification": "Núcleo",
+      "portion": "≈20-30 g/día total",
+      "description": "Grasa culinaria principal.",
+      "tags": [
+        "grasa"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "avocado",
+      "name": "Aguacate",
+      "group": "Frutos secos y grasas",
+      "classification": "Rotación",
+      "portion": "50-100 g",
+      "description": "Grasa monoinsaturada y fibra.",
+      "tags": [
+        "grasa"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "tomato_passata",
+      "name": "Tomate triturado / passata",
+      "group": "Despensa y conveniencia",
+      "classification": "Núcleo",
+      "portion": "100-250 g en recetas",
+      "description": "Excelente base de cocina.",
+      "tags": [
+        "despensa",
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "pisto",
+      "name": "Pisto preparado razonable",
+      "group": "Despensa y conveniencia",
+      "classification": "Núcleo",
+      "portion": "150-250 g",
+      "description": "Aumenta verduras con poco trabajo.",
+      "tags": [
+        "conveniencia",
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "frozen_veg",
+      "name": "Verduras congeladas / microondas",
+      "group": "Despensa y conveniencia",
+      "classification": "Núcleo",
+      "portion": "150-300 g",
+      "description": "Herramienta principal para automatizar verduras.",
+      "tags": [
+        "conveniencia",
+        "verdura"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "water",
+      "name": "Agua",
+      "group": "Bebidas",
+      "classification": "Núcleo",
+      "portion": "Principal bebida",
+      "description": "Objetivo inicial ≈1,5-2 L de bebidas/día.",
+      "tags": [
+        "bebida"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "coffee",
+      "name": "Café",
+      "group": "Bebidas",
+      "classification": "Núcleo",
+      "portion": "1-2/día",
+      "description": "Compatible con el plan.",
+      "tags": [
+        "bebida"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "whey",
+      "name": "Whey",
+      "group": "Suplementos",
+      "classification": "Herramienta habitual",
+      "portion": "25-30 g polvo",
+      "description": "Facilita alcanzar proteína sin aumentar platos.",
+      "tags": [
+        "suplemento",
+        "proteina"
+      ],
+      "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "creatine",
+      "name": "Creatina monohidrato",
+      "group": "Suplementos",
+      "classification": "Útil al retomar fuerza",
+      "portion": "3-5 g/día",
+      "description": "Opcional; útil con entrenamiento de fuerza.",
+      "tags": [
+        "suplemento"
+      ],
+      "aliases": [],
+      "version": 1
+    }
+  ],
+  "recipes": [
+    {
+      "id": "lentils_chicken",
+      "name": "Lentejas con pollo y verduras",
+      "category": "Meal-prep",
+      "tags": [
+        "meal-prep",
+        "legumbres",
+        "pollo",
+        "alta fibra"
+      ],
+      "ingredients": [
+        {
+          "name": "Lentejas",
+          "quantity": "60",
+          "unit": "g secas",
+          "note": "≈160-180 g cocidas/escurridas"
+        },
+        {
+          "name": "Pollo",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Zanahoria",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Puerro",
+          "quantity": "40",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate triturado",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "7",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Sofreír verduras, añadir pollo, tomate y especias; incorporar lentejas y agua o caldo hasta textura de cuchara.",
+      "nutrition": {
+        "calories": {
+          "min": 500,
+          "max": 540,
+          "calc": 520
+        },
+        "proteinG": {
+          "min": 38,
+          "max": 42,
+          "calc": 40
+        },
+        "carbsG": {
+          "min": 55,
+          "max": 65,
+          "calc": 60
+        },
+        "fatG": {
+          "min": 10,
+          "max": 14,
+          "calc": 12
+        },
+        "fiberG": {
+          "min": 14,
+          "max": 16,
+          "calc": 15
+        },
+        "vegetablesG": 300,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 1,
+        "redMeatServings": 0,
+        "poultryServings": 1,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 40,
+      "freezable": true,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "chickpeas_cod",
+      "name": "Garbanzos con bacalao y espinacas",
+      "category": "Meal-prep",
+      "tags": [
+        "meal-prep",
+        "legumbres",
+        "pescado blanco"
+      ],
+      "ingredients": [
+        {
+          "name": "Garbanzos",
+          "quantity": "55-60",
+          "unit": "g secos",
+          "note": "≈150-170 g cocidos/escurridos"
+        },
+        {
+          "name": "Bacalao",
+          "quantity": "120",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Espinacas",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate triturado",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "8",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Sofreír cebolla y pimiento, añadir tomate, garbanzos y espinacas; terminar con el bacalao.",
+      "nutrition": {
+        "calories": {
+          "min": 480,
+          "max": 520,
+          "calc": 500
+        },
+        "proteinG": {
+          "min": 37,
+          "max": 41,
+          "calc": 39
+        },
+        "carbsG": {
+          "min": 50,
+          "max": 60,
+          "calc": 55
+        },
+        "fatG": {
+          "min": 10,
+          "max": 14,
+          "calc": 12
+        },
+        "fiberG": {
+          "min": 12,
+          "max": 15,
+          "calc": 14
+        },
+        "vegetablesG": 310,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 1,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 1,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 35,
+      "freezable": true,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "beans_pork",
+      "name": "Alubias con lomo de cerdo y verduras",
+      "category": "Meal-prep",
+      "tags": [
+        "meal-prep",
+        "legumbres",
+        "carne roja"
+      ],
+      "ingredients": [
+        {
+          "name": "Alubias",
+          "quantity": "55-60",
+          "unit": "g secas",
+          "note": "≈150-170 g cocidas/escurridas"
+        },
+        {
+          "name": "Lomo fresco de cerdo",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Zanahoria",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate triturado",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "7",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Sofreír verduras, dorar ligeramente el lomo, añadir tomate, alubias y agua o caldo.",
+      "nutrition": {
+        "calories": {
+          "min": 510,
+          "max": 560,
+          "calc": 535
+        },
+        "proteinG": {
+          "min": 37,
+          "max": 41,
+          "calc": 39
+        },
+        "carbsG": {
+          "min": 50,
+          "max": 60,
+          "calc": 55
+        },
+        "fatG": {
+          "min": 12,
+          "max": 17,
+          "calc": 14
+        },
+        "fiberG": {
+          "min": 13,
+          "max": 15,
+          "calc": 14
+        },
+        "vegetablesG": 270,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 1,
+        "redMeatServings": 1,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 45,
+      "freezable": true,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "chicken_potato_stew",
+      "name": "Pollo guisado con patata y verduras",
+      "category": "Meal-prep",
+      "tags": [
+        "meal-prep",
+        "pollo",
+        "guiso"
+      ],
+      "ingredients": [
+        {
+          "name": "Pollo",
+          "quantity": "140",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Patata",
+          "quantity": "225",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Zanahoria",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Puerro",
+          "quantity": "40",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate triturado",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "8",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Sofreír verduras, dorar pollo, añadir tomate, patata y caldo; cocinar hasta que la patata esté tierna.",
+      "nutrition": {
+        "calories": {
+          "min": 480,
+          "max": 530,
+          "calc": 505
+        },
+        "proteinG": {
+          "min": 34,
+          "max": 38,
+          "calc": 36
+        },
+        "carbsG": {
+          "min": 50,
+          "max": 60,
+          "calc": 55
+        },
+        "fatG": {
+          "min": 12,
+          "max": 16,
+          "calc": 14
+        },
+        "fiberG": {
+          "min": 7,
+          "max": 9,
+          "calc": 8
+        },
+        "vegetablesG": 300,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 1,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 45,
+      "freezable": true,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "beef_potato_stew",
+      "name": "Ternera guisada con patata y verduras",
+      "category": "Meal-prep",
+      "tags": [
+        "meal-prep",
+        "ternera",
+        "carne roja"
+      ],
+      "ingredients": [
+        {
+          "name": "Ternera magra",
+          "quantity": "130",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Patata",
+          "quantity": "200",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Zanahoria",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Champiñón",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate triturado",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "7",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Dorar ternera, sofreír verduras, añadir tomate, patata y caldo; cocinar hasta que la carne esté tierna.",
+      "nutrition": {
+        "calories": {
+          "min": 500,
+          "max": 560,
+          "calc": 530
+        },
+        "proteinG": {
+          "min": 34,
+          "max": 38,
+          "calc": 36
+        },
+        "carbsG": {
+          "min": 45,
+          "max": 55,
+          "calc": 50
+        },
+        "fatG": {
+          "min": 14,
+          "max": 19,
+          "calc": 16
+        },
+        "fiberG": {
+          "min": 7,
+          "max": 9,
+          "calc": 8
+        },
+        "vegetablesG": 330,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 1,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 60,
+      "freezable": true,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "bolognese",
+      "name": "Pasta boloñesa equilibrada",
+      "category": "Meal-prep / indulgente",
+      "tags": [
+        "meal-prep",
+        "indulgente controlada",
+        "pasta",
+        "carne roja"
+      ],
+      "ingredients": [
+        {
+          "name": "Pasta",
+          "quantity": "75",
+          "unit": "g seca",
+          "note": "≈170-200 g cocida"
+        },
+        {
+          "name": "Vacuno picado magro",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate triturado",
+          "quantity": "180",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Zanahoria",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Champiñón",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "6",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Parmesano",
+          "quantity": "10",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Preparar una salsa con mucha verdura y tomate, añadir carne magra y mezclar con pasta cocida.",
+      "nutrition": {
+        "calories": {
+          "min": 570,
+          "max": 630,
+          "calc": 600
+        },
+        "proteinG": {
+          "min": 37,
+          "max": 41,
+          "calc": 39
+        },
+        "carbsG": {
+          "min": 70,
+          "max": 80,
+          "calc": 75
+        },
+        "fatG": {
+          "min": 15,
+          "max": 20,
+          "calc": 18
+        },
+        "fiberG": {
+          "min": 9,
+          "max": 12,
+          "calc": 10
+        },
+        "vegetablesG": 380,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 1,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 35,
+      "freezable": true,
+      "notes": "Mejor congelar la salsa por separado.",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "chicken_rice",
+      "name": "Arroz con pollo, guisantes y verduras",
+      "category": "Meal-prep",
+      "tags": [
+        "meal-prep",
+        "pollo",
+        "arroz"
+      ],
+      "ingredients": [
+        {
+          "name": "Arroz",
+          "quantity": "60",
+          "unit": "g seco",
+          "note": "≈160-190 g cocido"
+        },
+        {
+          "name": "Pollo",
+          "quantity": "120",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Guisantes",
+          "quantity": "70",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Calabacín",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate triturado",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "7",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Sofreír verduras y pollo, añadir tomate, arroz, guisantes y caldo; cocinar hasta el punto del arroz.",
+      "nutrition": {
+        "calories": {
+          "min": 520,
+          "max": 570,
+          "calc": 545
+        },
+        "proteinG": {
+          "min": 35,
+          "max": 39,
+          "calc": 37
+        },
+        "carbsG": {
+          "min": 65,
+          "max": 75,
+          "calc": 70
+        },
+        "fatG": {
+          "min": 10,
+          "max": 15,
+          "calc": 12
+        },
+        "fiberG": {
+          "min": 7,
+          "max": 9,
+          "calc": 8
+        },
+        "vegetablesG": 250,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0.5,
+        "redMeatServings": 0,
+        "poultryServings": 1,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 35,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "seafood_potato_stew",
+      "name": "Guiso marinero de patata, gambas y chipirones",
+      "category": "Meal-prep",
+      "tags": [
+        "meal-prep",
+        "marisco",
+        "chipirones",
+        "gambas"
+      ],
+      "ingredients": [
+        {
+          "name": "Patata",
+          "quantity": "220",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Chipirones/calamar limpio",
+          "quantity": "120",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Gambas peladas",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "70",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Puerro",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate triturado",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "8",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Sofreír verduras, añadir tomate y chipirones, incorporar patata y caldo; añadir las gambas al final.",
+      "nutrition": {
+        "calories": {
+          "min": 470,
+          "max": 530,
+          "calc": 500
+        },
+        "proteinG": {
+          "min": 35,
+          "max": 40,
+          "calc": 38
+        },
+        "carbsG": {
+          "min": 50,
+          "max": 60,
+          "calc": 55
+        },
+        "fatG": {
+          "min": 10,
+          "max": 14,
+          "calc": 12
+        },
+        "fiberG": {
+          "min": 7,
+          "max": 9,
+          "calc": 8
+        },
+        "vegetablesG": 280,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 1,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 40,
+      "freezable": true,
+      "notes": "La patata puede perder algo de textura al congelar.",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "seafood_pasta",
+      "name": "Pasta marinera con gambas y mejillones",
+      "category": "Meal-prep / indulgente",
+      "tags": [
+        "meal-prep",
+        "indulgente controlada",
+        "marisco",
+        "pasta"
+      ],
+      "ingredients": [
+        {
+          "name": "Pasta",
+          "quantity": "75",
+          "unit": "g seca",
+          "note": "≈170-200 g cocida"
+        },
+        {
+          "name": "Gambas",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Mejillones",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate triturado",
+          "quantity": "150",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Calabacín",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "7",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Preparar salsa de verduras y tomate; añadir marisco al final y mezclar con pasta.",
+      "nutrition": {
+        "calories": {
+          "min": 540,
+          "max": 610,
+          "calc": 575
+        },
+        "proteinG": {
+          "min": 35,
+          "max": 41,
+          "calc": 38
+        },
+        "carbsG": {
+          "min": 70,
+          "max": 80,
+          "calc": 75
+        },
+        "fatG": {
+          "min": 11,
+          "max": 16,
+          "calc": 14
+        },
+        "fiberG": {
+          "min": 8,
+          "max": 10,
+          "calc": 9
+        },
+        "vegetablesG": 340,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 1,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 30,
+      "freezable": true,
+      "notes": "Mejor congelar la salsa por separado.",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "seafood_rice",
+      "name": "Arroz marinero con sepia, gambas y verduras",
+      "category": "Meal-prep",
+      "tags": [
+        "meal-prep",
+        "marisco",
+        "arroz",
+        "sepia"
+      ],
+      "ingredients": [
+        {
+          "name": "Arroz",
+          "quantity": "60",
+          "unit": "g seco",
+          "note": "≈160-190 g cocido"
+        },
+        {
+          "name": "Sepia",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Gambas",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "70",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Calabacín",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate triturado",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Guisantes",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "7",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Sofreír verduras y sepia, añadir tomate, arroz y caldo; terminar con gambas y guisantes.",
+      "nutrition": {
+        "calories": {
+          "min": 500,
+          "max": 560,
+          "calc": 530
+        },
+        "proteinG": {
+          "min": 34,
+          "max": 39,
+          "calc": 36
+        },
+        "carbsG": {
+          "min": 65,
+          "max": 75,
+          "calc": 70
+        },
+        "fatG": {
+          "min": 9,
+          "max": 14,
+          "calc": 12
+        },
+        "fiberG": {
+          "min": 7,
+          "max": 9,
+          "calc": 8
+        },
+        "vegetablesG": 330,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 1,
+        "legumeServings": 0.5,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 35,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "salmon_sweetpotato",
+      "name": "Salmón con batata y espárragos",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "pescado azul prioritario"
+      ],
+      "ingredients": [
+        {
+          "name": "Salmón",
+          "quantity": "140-160",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Batata",
+          "quantity": "180-220",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Espárragos",
+          "quantity": "180-220",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "5",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Cocinar batata al microondas; hacer salmón y espárragos a la plancha o air fryer.",
+      "nutrition": {
+        "calories": {
+          "min": 530,
+          "max": 610,
+          "calc": 570
+        },
+        "proteinG": {
+          "min": 33,
+          "max": 38,
+          "calc": 36
+        },
+        "carbsG": {
+          "min": 40,
+          "max": 50,
+          "calc": 45
+        },
+        "fatG": {
+          "min": 22,
+          "max": 30,
+          "calc": 26
+        },
+        "fiberG": {
+          "min": 8,
+          "max": 10,
+          "calc": 9
+        },
+        "vegetablesG": 200,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 1,
+        "priorityOilyFishServings": 1,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 15,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "hake_pisto",
+      "name": "Merluza con patata y pisto",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "pescado blanco"
+      ],
+      "ingredients": [
+        {
+          "name": "Merluza",
+          "quantity": "160-180",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Patata",
+          "quantity": "200-250",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pisto",
+          "quantity": "200-250",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE adicional",
+          "quantity": "0-5",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Cocinar la patata al microondas, hacer la merluza y calentar el pisto.",
+      "nutrition": {
+        "calories": {
+          "min": 400,
+          "max": 480,
+          "calc": 440
+        },
+        "proteinG": {
+          "min": 34,
+          "max": 39,
+          "calc": 36
+        },
+        "carbsG": {
+          "min": 45,
+          "max": 55,
+          "calc": 50
+        },
+        "fatG": {
+          "min": 7,
+          "max": 13,
+          "calc": 10
+        },
+        "fiberG": {
+          "min": 7,
+          "max": 10,
+          "calc": 8
+        },
+        "vegetablesG": 225,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 1,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 15,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "cod_veg_bread",
+      "name": "Bacalao con verduras y pan integral",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "pescado blanco"
+      ],
+      "ingredients": [
+        {
+          "name": "Bacalao",
+          "quantity": "160-180",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento/calabacín/cebolla",
+          "quantity": "250",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pan integral",
+          "quantity": "50-60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "7-8",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Saltear las verduras y hacer el bacalao a la plancha. Servir con pan integral.",
+      "nutrition": {
+        "calories": {
+          "min": 420,
+          "max": 490,
+          "calc": 455
+        },
+        "proteinG": {
+          "min": 36,
+          "max": 41,
+          "calc": 38
+        },
+        "carbsG": {
+          "min": 40,
+          "max": 50,
+          "calc": 45
+        },
+        "fatG": {
+          "min": 9,
+          "max": 14,
+          "calc": 12
+        },
+        "fiberG": {
+          "min": 8,
+          "max": 10,
+          "calc": 9
+        },
+        "vegetablesG": 250,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 1,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 15,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "sea_bass_potato",
+      "name": "Lubina o dorada con patata y verduras",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "pescado blanco"
+      ],
+      "ingredients": [
+        {
+          "name": "Lubina o dorada",
+          "quantity": "160-180",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Patata",
+          "quantity": "200",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Calabacín",
+          "quantity": "120",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "7",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Cocinar patata y verduras; hacer el pescado a la plancha o air fryer.",
+      "nutrition": {
+        "calories": {
+          "min": 440,
+          "max": 510,
+          "calc": 475
+        },
+        "proteinG": {
+          "min": 34,
+          "max": 38,
+          "calc": 36
+        },
+        "carbsG": {
+          "min": 40,
+          "max": 50,
+          "calc": 45
+        },
+        "fatG": {
+          "min": 12,
+          "max": 17,
+          "calc": 14
+        },
+        "fiberG": {
+          "min": 6,
+          "max": 8,
+          "calc": 7
+        },
+        "vegetablesG": 220,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 1,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 15,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "monkfish_rice",
+      "name": "Rape con arroz y verduras",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "pescado blanco"
+      ],
+      "ingredients": [
+        {
+          "name": "Rape",
+          "quantity": "160-180",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Arroz",
+          "quantity": "45-50",
+          "unit": "g seco",
+          "note": "≈125-150 g cocido"
+        },
+        {
+          "name": "Champiñón",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Calabacín",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "7",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Saltear verduras y rape; servir con arroz cocido.",
+      "nutrition": {
+        "calories": {
+          "min": 430,
+          "max": 500,
+          "calc": 465
+        },
+        "proteinG": {
+          "min": 36,
+          "max": 40,
+          "calc": 38
+        },
+        "carbsG": {
+          "min": 45,
+          "max": 55,
+          "calc": 50
+        },
+        "fatG": {
+          "min": 9,
+          "max": 14,
+          "calc": 12
+        },
+        "fiberG": {
+          "min": 6,
+          "max": 8,
+          "calc": 7
+        },
+        "vegetablesG": 260,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 1,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 15,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "omelette_pisto",
+      "name": "Tortilla reforzada con pisto",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "huevo",
+        "pisto"
+      ],
+      "ingredients": [
+        {
+          "name": "Huevos",
+          "quantity": "2",
+          "unit": "ud",
+          "note": ""
+        },
+        {
+          "name": "Claras pasteurizadas",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pisto",
+          "quantity": "200-250",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pan integral",
+          "quantity": "40-60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "5",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Calentar pisto y cuajar una tortilla con huevos y claras; servir con pan.",
+      "nutrition": {
+        "calories": {
+          "min": 390,
+          "max": 470,
+          "calc": 430
+        },
+        "proteinG": {
+          "min": 30,
+          "max": 34,
+          "calc": 32
+        },
+        "carbsG": {
+          "min": 35,
+          "max": 50,
+          "calc": 42
+        },
+        "fatG": {
+          "min": 13,
+          "max": 18,
+          "calc": 16
+        },
+        "fiberG": {
+          "min": 6,
+          "max": 9,
+          "calc": 8
+        },
+        "vegetablesG": 225,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 2,
+        "nutsServings": 0
+      },
+      "timeMinutes": 10,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "shrimp_egg_scramble",
+      "name": "Revuelto de gambas, huevos y verduras",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "marisco",
+        "huevo"
+      ],
+      "ingredients": [
+        {
+          "name": "Huevos",
+          "quantity": "2",
+          "unit": "ud",
+          "note": ""
+        },
+        {
+          "name": "Gambas",
+          "quantity": "120",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Champiñones",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Espárragos",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "5",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pan integral",
+          "quantity": "0-40",
+          "unit": "g",
+          "note": "opcional"
+        }
+      ],
+      "preparation": "Saltear verduras y gambas; añadir huevos batidos y cuajar suavemente.",
+      "nutrition": {
+        "calories": {
+          "min": 360,
+          "max": 470,
+          "calc": 415
+        },
+        "proteinG": {
+          "min": 35,
+          "max": 41,
+          "calc": 38
+        },
+        "carbsG": {
+          "min": 15,
+          "max": 35,
+          "calc": 25
+        },
+        "fatG": {
+          "min": 15,
+          "max": 20,
+          "calc": 18
+        },
+        "fiberG": {
+          "min": 5,
+          "max": 8,
+          "calc": 6
+        },
+        "vegetablesG": 250,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 1,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 2,
+        "nutsServings": 0
+      },
+      "timeMinutes": 10,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "cuttlefish_potato",
+      "name": "Sepia al ajillo con patata y verduras",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "marisco",
+        "sepia"
+      ],
+      "ingredients": [
+        {
+          "name": "Sepia",
+          "quantity": "170-200",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Patata",
+          "quantity": "200-250",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Calabacín",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "8",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Cocinar patata al microondas; saltear verduras y sepia con ajo y perejil.",
+      "nutrition": {
+        "calories": {
+          "min": 430,
+          "max": 510,
+          "calc": 470
+        },
+        "proteinG": {
+          "min": 32,
+          "max": 38,
+          "calc": 35
+        },
+        "carbsG": {
+          "min": 45,
+          "max": 55,
+          "calc": 50
+        },
+        "fatG": {
+          "min": 10,
+          "max": 15,
+          "calc": 12
+        },
+        "fiberG": {
+          "min": 6,
+          "max": 8,
+          "calc": 7
+        },
+        "vegetablesG": 230,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 1,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 15,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "octopus_potato",
+      "name": "Pulpo con patata, pimiento y cebolla",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "marisco",
+        "pulpo"
+      ],
+      "ingredients": [
+        {
+          "name": "Pulpo cocido",
+          "quantity": "140-160",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Patata",
+          "quantity": "200-250",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "8-10",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Calentar patata y pulpo; mezclar con pimiento/cebolla y aliñar con pimentón y AOVE.",
+      "nutrition": {
+        "calories": {
+          "min": 430,
+          "max": 510,
+          "calc": 470
+        },
+        "proteinG": {
+          "min": 29,
+          "max": 34,
+          "calc": 32
+        },
+        "carbsG": {
+          "min": 45,
+          "max": 55,
+          "calc": 50
+        },
+        "fatG": {
+          "min": 10,
+          "max": 16,
+          "calc": 13
+        },
+        "fiberG": {
+          "min": 5,
+          "max": 7,
+          "calc": 6
+        },
+        "vegetablesG": 130,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 1,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 10,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "prawns_salad_potato",
+      "name": "Langostinos con ensalada completa y patata",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "marisco",
+        "ensalada"
+      ],
+      "ingredients": [
+        {
+          "name": "Langostinos cocidos pelados",
+          "quantity": "160-180",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Patata",
+          "quantity": "180-220",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Lechuga/brotes",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "30-40",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "8",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Cocinar la patata y montar una ensalada completa con los langostinos.",
+      "nutrition": {
+        "calories": {
+          "min": 410,
+          "max": 490,
+          "calc": 450
+        },
+        "proteinG": {
+          "min": 34,
+          "max": 40,
+          "calc": 37
+        },
+        "carbsG": {
+          "min": 40,
+          "max": 50,
+          "calc": 45
+        },
+        "fatG": {
+          "min": 9,
+          "max": 14,
+          "calc": 12
+        },
+        "fiberG": {
+          "min": 6,
+          "max": 9,
+          "calc": 8
+        },
+        "vegetablesG": 270,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 1,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 10,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "sardines_bread",
+      "name": "Sardinillas con tomate, pimiento y pan",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "pescado azul prioritario",
+        "conserva"
+      ],
+      "ingredients": [
+        {
+          "name": "Sardinillas",
+          "quantity": "90-120",
+          "unit": "g escurridas",
+          "note": ""
+        },
+        {
+          "name": "Tomate",
+          "quantity": "150-200",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento asado",
+          "quantity": "80-100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Lechuga/brotes",
+          "quantity": "80-100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pan integral",
+          "quantity": "60-70",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Montar el plato con verduras, pan y sardinillas bien escurridas.",
+      "nutrition": {
+        "calories": {
+          "min": 430,
+          "max": 560,
+          "calc": 495
+        },
+        "proteinG": {
+          "min": 28,
+          "max": 35,
+          "calc": 32
+        },
+        "carbsG": {
+          "min": 40,
+          "max": 55,
+          "calc": 48
+        },
+        "fatG": {
+          "min": 16,
+          "max": 25,
+          "calc": 20
+        },
+        "fiberG": {
+          "min": 7,
+          "max": 10,
+          "calc": 8
+        },
+        "vegetablesG": 300,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 1,
+        "priorityOilyFishServings": 1,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 5,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "mussels_tomato",
+      "name": "Mejillones con tomate, verduras y pan",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "marisco",
+        "mejillones"
+      ],
+      "ingredients": [
+        {
+          "name": "Mejillones sin concha",
+          "quantity": "160-180",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate triturado",
+          "quantity": "150",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pan integral",
+          "quantity": "50-60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "7",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Sofreír cebolla y pimiento, añadir tomate y terminar con los mejillones.",
+      "nutrition": {
+        "calories": {
+          "min": 420,
+          "max": 490,
+          "calc": 455
+        },
+        "proteinG": {
+          "min": 30,
+          "max": 36,
+          "calc": 33
+        },
+        "carbsG": {
+          "min": 40,
+          "max": 50,
+          "calc": 45
+        },
+        "fatG": {
+          "min": 10,
+          "max": 15,
+          "calc": 12
+        },
+        "fiberG": {
+          "min": 7,
+          "max": 10,
+          "calc": 8
+        },
+        "vegetablesG": 290,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 1,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 10,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "hake_clams",
+      "name": "Merluza con almejas, guisantes y patata",
+      "category": "Cena rápida",
+      "tags": [
+        "rapida",
+        "pescado blanco",
+        "marisco"
+      ],
+      "ingredients": [
+        {
+          "name": "Merluza",
+          "quantity": "130-150",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Almejas",
+          "quantity": "80-100",
+          "unit": "g de carne aprox.",
+          "note": ""
+        },
+        {
+          "name": "Guisantes",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Patata",
+          "quantity": "150-180",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "7",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Cocinar cebolla y patata con un poco de caldo; añadir merluza, almejas y guisantes al final.",
+      "nutrition": {
+        "calories": {
+          "min": 420,
+          "max": 480,
+          "calc": 450
+        },
+        "proteinG": {
+          "min": 38,
+          "max": 43,
+          "calc": 40
+        },
+        "carbsG": {
+          "min": 40,
+          "max": 50,
+          "calc": 45
+        },
+        "fatG": {
+          "min": 8,
+          "max": 13,
+          "calc": 10
+        },
+        "fiberG": {
+          "min": 6,
+          "max": 8,
+          "calc": 7
+        },
+        "vegetablesG": 130,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0.5,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0.5,
+        "legumeServings": 0.5,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 15,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "beef_burger",
+      "name": "Hamburguesa de vacuno con patatas air fryer",
+      "category": "Indulgente controlada",
+      "tags": [
+        "indulgente controlada",
+        "hamburguesa",
+        "carne roja"
+      ],
+      "ingredients": [
+        {
+          "name": "Vacuno picado magro",
+          "quantity": "140",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pan",
+          "quantity": "70-80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Queso",
+          "quantity": "20",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "40",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Lechuga",
+          "quantity": "al gusto",
+          "unit": "",
+          "note": ""
+        },
+        {
+          "name": "Patata",
+          "quantity": "200",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "5",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Cocinar hamburguesa y patatas; montar con verduras, queso y salsa medida.",
+      "nutrition": {
+        "calories": {
+          "min": 650,
+          "max": 750,
+          "calc": 700
+        },
+        "proteinG": {
+          "min": 40,
+          "max": 45,
+          "calc": 42
+        },
+        "carbsG": {
+          "min": 60,
+          "max": 75,
+          "calc": 68
+        },
+        "fatG": {
+          "min": 22,
+          "max": 30,
+          "calc": 26
+        },
+        "fiberG": {
+          "min": 6,
+          "max": 9,
+          "calc": 8
+        },
+        "vegetablesG": 120,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 1,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 20,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "chicken_burger",
+      "name": "Hamburguesa de pollo con patata",
+      "category": "Indulgente controlada",
+      "tags": [
+        "indulgente controlada",
+        "hamburguesa",
+        "pollo"
+      ],
+      "ingredients": [
+        {
+          "name": "Pollo",
+          "quantity": "140-150",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pan",
+          "quantity": "70-80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Queso",
+          "quantity": "20",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate/cebolla/lechuga",
+          "quantity": "100-150",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Patata",
+          "quantity": "200",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "AOVE",
+          "quantity": "5",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Cocinar pollo y patatas; montar con verduras y salsa de yogur.",
+      "nutrition": {
+        "calories": {
+          "min": 600,
+          "max": 700,
+          "calc": 650
+        },
+        "proteinG": {
+          "min": 42,
+          "max": 47,
+          "calc": 44
+        },
+        "carbsG": {
+          "min": 60,
+          "max": 75,
+          "calc": 68
+        },
+        "fatG": {
+          "min": 16,
+          "max": 24,
+          "calc": 20
+        },
+        "fiberG": {
+          "min": 6,
+          "max": 9,
+          "calc": 8
+        },
+        "vegetablesG": 125,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 1,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 20,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "chicken_fajitas",
+      "name": "Fajitas de pollo",
+      "category": "Indulgente controlada",
+      "tags": [
+        "indulgente controlada",
+        "fajitas",
+        "pollo"
+      ],
+      "ingredients": [
+        {
+          "name": "Tortillas integrales",
+          "quantity": "2",
+          "unit": "ud",
+          "note": "≈80-100 g total"
+        },
+        {
+          "name": "Pollo",
+          "quantity": "120-140",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Guacamole",
+          "quantity": "30",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Salsa de yogur",
+          "quantity": "30-50",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Saltear pollo, pimiento y cebolla; rellenar tortillas con tomate, guacamole y salsa.",
+      "nutrition": {
+        "calories": {
+          "min": 540,
+          "max": 650,
+          "calc": 595
+        },
+        "proteinG": {
+          "min": 38,
+          "max": 43,
+          "calc": 40
+        },
+        "carbsG": {
+          "min": 60,
+          "max": 75,
+          "calc": 68
+        },
+        "fatG": {
+          "min": 16,
+          "max": 23,
+          "calc": 20
+        },
+        "fiberG": {
+          "min": 8,
+          "max": 11,
+          "calc": 10
+        },
+        "vegetablesG": 240,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 1,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 20,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "shrimp_fajitas",
+      "name": "Fajitas de gambas",
+      "category": "Indulgente controlada",
+      "tags": [
+        "indulgente controlada",
+        "fajitas",
+        "marisco"
+      ],
+      "ingredients": [
+        {
+          "name": "Tortillas integrales",
+          "quantity": "2",
+          "unit": "ud",
+          "note": ""
+        },
+        {
+          "name": "Gambas",
+          "quantity": "160",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Calabacín",
+          "quantity": "70",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Guacamole",
+          "quantity": "30",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Salsa de yogur",
+          "quantity": "30-50",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Saltear verduras, añadir gambas al final y rellenar tortillas.",
+      "nutrition": {
+        "calories": {
+          "min": 500,
+          "max": 610,
+          "calc": 555
+        },
+        "proteinG": {
+          "min": 35,
+          "max": 41,
+          "calc": 38
+        },
+        "carbsG": {
+          "min": 60,
+          "max": 75,
+          "calc": 68
+        },
+        "fatG": {
+          "min": 13,
+          "max": 20,
+          "calc": 16
+        },
+        "fiberG": {
+          "min": 8,
+          "max": 11,
+          "calc": 10
+        },
+        "vegetablesG": 250,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 1,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 15,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "beef_bean_burrito",
+      "name": "Burrito de vacuno y alubias",
+      "category": "Indulgente controlada",
+      "tags": [
+        "indulgente controlada",
+        "burrito",
+        "carne roja",
+        "legumbres"
+      ],
+      "ingredients": [
+        {
+          "name": "Tortilla grande",
+          "quantity": "70-80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Vacuno magro",
+          "quantity": "90-100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Alubias",
+          "quantity": "35-40",
+          "unit": "g secas",
+          "note": "≈90-110 g cocidas/escurridas"
+        },
+        {
+          "name": "Arroz",
+          "quantity": "25-30",
+          "unit": "g seco",
+          "note": "≈70-90 g cocido"
+        },
+        {
+          "name": "Pimiento + cebolla",
+          "quantity": "120",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Guacamole",
+          "quantity": "30",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Saltear carne y verduras; añadir alubias y arroz, montar el burrito.",
+      "nutrition": {
+        "calories": {
+          "min": 590,
+          "max": 690,
+          "calc": 640
+        },
+        "proteinG": {
+          "min": 37,
+          "max": 43,
+          "calc": 40
+        },
+        "carbsG": {
+          "min": 70,
+          "max": 85,
+          "calc": 78
+        },
+        "fatG": {
+          "min": 18,
+          "max": 25,
+          "calc": 22
+        },
+        "fiberG": {
+          "min": 9,
+          "max": 12,
+          "calc": 10
+        },
+        "vegetablesG": 170,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0.5,
+        "redMeatServings": 1,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 20,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "chicken_pizza",
+      "name": "Pizza casera de pollo, champiñón y pimiento",
+      "category": "Indulgente controlada",
+      "tags": [
+        "indulgente controlada",
+        "pizza",
+        "pollo"
+      ],
+      "ingredients": [
+        {
+          "name": "Masa/base",
+          "quantity": "140-160",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate triturado",
+          "quantity": "100-120",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Mozzarella",
+          "quantity": "50-60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pollo",
+          "quantity": "80-100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Champiñón",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "60",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "40",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Cubrir la base con tomate y toppings medidos; hornear a temperatura alta.",
+      "nutrition": {
+        "calories": {
+          "min": 650,
+          "max": 750,
+          "calc": 700
+        },
+        "proteinG": {
+          "min": 39,
+          "max": 45,
+          "calc": 42
+        },
+        "carbsG": {
+          "min": 75,
+          "max": 90,
+          "calc": 82
+        },
+        "fatG": {
+          "min": 18,
+          "max": 26,
+          "calc": 22
+        },
+        "fiberG": {
+          "min": 7,
+          "max": 10,
+          "calc": 8
+        },
+        "vegetablesG": 280,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 1,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 25,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "tuna_pizza",
+      "name": "Pizza de atún y verduras",
+      "category": "Indulgente controlada",
+      "tags": [
+        "indulgente controlada",
+        "pizza",
+        "atún"
+      ],
+      "ingredients": [
+        {
+          "name": "Masa/base",
+          "quantity": "140-160",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate",
+          "quantity": "100-120",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Mozzarella",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Atún claro",
+          "quantity": "80-100",
+          "unit": "g escurrido",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento",
+          "quantity": "70",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Champiñón",
+          "quantity": "70",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Montar y hornear; escurrir bien el atún.",
+      "nutrition": {
+        "calories": {
+          "min": 630,
+          "max": 740,
+          "calc": 685
+        },
+        "proteinG": {
+          "min": 38,
+          "max": 43,
+          "calc": 40
+        },
+        "carbsG": {
+          "min": 75,
+          "max": 90,
+          "calc": 82
+        },
+        "fatG": {
+          "min": 17,
+          "max": 25,
+          "calc": 21
+        },
+        "fiberG": {
+          "min": 7,
+          "max": 10,
+          "calc": 8
+        },
+        "vegetablesG": 290,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 1,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 25,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "seafood_pizza",
+      "name": "Pizza marinera",
+      "category": "Indulgente controlada",
+      "tags": [
+        "indulgente controlada",
+        "pizza",
+        "marisco"
+      ],
+      "ingredients": [
+        {
+          "name": "Masa/base",
+          "quantity": "140-160",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Tomate",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Mozzarella",
+          "quantity": "40-50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Gambas",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Mejillones",
+          "quantity": "70",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Calamar limpio",
+          "quantity": "70",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Pimiento + cebolla",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Montar la pizza con tomate, mozzarella y marisco; hornear.",
+      "nutrition": {
+        "calories": {
+          "min": 650,
+          "max": 760,
+          "calc": 705
+        },
+        "proteinG": {
+          "min": 39,
+          "max": 45,
+          "calc": 42
+        },
+        "carbsG": {
+          "min": 75,
+          "max": 90,
+          "calc": 82
+        },
+        "fatG": {
+          "min": 17,
+          "max": 25,
+          "calc": 21
+        },
+        "fiberG": {
+          "min": 6,
+          "max": 9,
+          "calc": 8
+        },
+        "vegetablesG": 200,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 1,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 25,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "salmon_spinach_pasta",
+      "name": "Pasta cremosa de salmón y espinacas",
+      "category": "Indulgente controlada",
+      "tags": [
+        "indulgente controlada",
+        "pasta",
+        "pescado azul prioritario"
+      ],
+      "ingredients": [
+        {
+          "name": "Pasta",
+          "quantity": "70",
+          "unit": "g seca",
+          "note": "≈160-185 g cocida"
+        },
+        {
+          "name": "Salmón",
+          "quantity": "100-120",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Espinacas",
+          "quantity": "120",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cebolla",
+          "quantity": "50",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Queso fresco batido/yogur espeso",
+          "quantity": "60-80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Parmesano",
+          "quantity": "5-10",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Saltear cebolla, espinacas y salmón; retirar del fuego y ligar con queso fresco/yogur. Mezclar con pasta.",
+      "nutrition": {
+        "calories": {
+          "min": 540,
+          "max": 630,
+          "calc": 585
+        },
+        "proteinG": {
+          "min": 33,
+          "max": 38,
+          "calc": 36
+        },
+        "carbsG": {
+          "min": 60,
+          "max": 70,
+          "calc": 65
+        },
+        "fatG": {
+          "min": 19,
+          "max": 26,
+          "calc": 22
+        },
+        "fiberG": {
+          "min": 7,
+          "max": 9,
+          "calc": 8
+        },
+        "vegetablesG": 170,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 1,
+        "priorityOilyFishServings": 1,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 20,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "protein_chocolate_cream",
+      "name": "Crema de chocolate proteica",
+      "category": "Postre",
+      "tags": [
+        "postre",
+        "lacteo",
+        "proteina"
+      ],
+      "ingredients": [
+        {
+          "name": "Queso fresco batido",
+          "quantity": "200",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Whey",
+          "quantity": "15-20",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cacao puro",
+          "quantity": "5",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Mezclar hasta textura cremosa.",
+      "nutrition": {
+        "calories": {
+          "min": 180,
+          "max": 230,
+          "calc": 205
+        },
+        "proteinG": {
+          "min": 27,
+          "max": 33,
+          "calc": 30
+        },
+        "carbsG": {
+          "min": 12,
+          "max": 18,
+          "calc": 15
+        },
+        "fatG": {
+          "min": 2,
+          "max": 5,
+          "calc": 4
+        },
+        "fiberG": {
+          "min": 1,
+          "max": 3,
+          "calc": 2
+        },
+        "vegetablesG": 0,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 3,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "skyr_fruit",
+      "name": "Skyr con fruta",
+      "category": "Postre",
+      "tags": [
+        "postre",
+        "lacteo",
+        "fruta"
+      ],
+      "ingredients": [
+        {
+          "name": "Skyr",
+          "quantity": "150-200",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Fruta",
+          "quantity": "120-180",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Cortar la fruta y mezclar con skyr.",
+      "nutrition": {
+        "calories": {
+          "min": 150,
+          "max": 250,
+          "calc": 200
+        },
+        "proteinG": {
+          "min": 15,
+          "max": 22,
+          "calc": 18
+        },
+        "carbsG": {
+          "min": 20,
+          "max": 35,
+          "calc": 28
+        },
+        "fatG": {
+          "min": 0,
+          "max": 4,
+          "calc": 2
+        },
+        "fiberG": {
+          "min": 3,
+          "max": 6,
+          "calc": 4
+        },
+        "vegetablesG": 0,
+        "fruitServings": 1
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 2,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "skyr_fruit_nuts",
+      "name": "Skyr con fruta y frutos secos",
+      "category": "Postre",
+      "tags": [
+        "postre",
+        "lacteo",
+        "fruta",
+        "frutos secos"
+      ],
+      "ingredients": [
+        {
+          "name": "Skyr",
+          "quantity": "170",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Fruta",
+          "quantity": "150",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Frutos secos",
+          "quantity": "20",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Mezclar; prepesar los frutos secos.",
+      "nutrition": {
+        "calories": {
+          "min": 270,
+          "max": 340,
+          "calc": 305
+        },
+        "proteinG": {
+          "min": 18,
+          "max": 23,
+          "calc": 20
+        },
+        "carbsG": {
+          "min": 25,
+          "max": 35,
+          "calc": 30
+        },
+        "fatG": {
+          "min": 10,
+          "max": 16,
+          "calc": 13
+        },
+        "fiberG": {
+          "min": 5,
+          "max": 7,
+          "calc": 6
+        },
+        "vegetablesG": 0,
+        "fruitServings": 1
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 1
+      },
+      "timeMinutes": 2,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "protein_yogurt_generic",
+      "name": "Yogur proteico saborizado",
+      "category": "Postre",
+      "tags": [
+        "postre",
+        "lacteo",
+        "proteina",
+        "producto variable"
+      ],
+      "ingredients": [
+        {
+          "name": "Yogur/pudding alto en proteína",
+          "quantity": "1",
+          "unit": "unidad",
+          "note": "Valor genérico editable cuando se elija marca"
+        }
+      ],
+      "preparation": "Consumir directamente.",
+      "nutrition": {
+        "calories": {
+          "min": 90,
+          "max": 130,
+          "calc": 110
+        },
+        "proteinG": {
+          "min": 13,
+          "max": 17,
+          "calc": 15
+        },
+        "carbsG": {
+          "min": 5,
+          "max": 15,
+          "calc": 10
+        },
+        "fatG": {
+          "min": 0,
+          "max": 5,
+          "calc": 2
+        },
+        "fiberG": {
+          "min": 0,
+          "max": 2,
+          "calc": 1
+        },
+        "vegetablesG": 0,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 1,
+      "freezable": false,
+      "notes": "Valor de cálculo central aproximado hasta sustituir por producto real.",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "whey_water",
+      "name": "Whey con agua",
+      "category": "Batido",
+      "tags": [
+        "batido",
+        "proteina"
+      ],
+      "ingredients": [
+        {
+          "name": "Whey",
+          "quantity": "25-30",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Agua",
+          "quantity": "al gusto",
+          "unit": "",
+          "note": ""
+        }
+      ],
+      "preparation": "Agitar con agua fría.",
+      "nutrition": {
+        "calories": {
+          "min": 100,
+          "max": 130,
+          "calc": 115
+        },
+        "proteinG": {
+          "min": 20,
+          "max": 24,
+          "calc": 22
+        },
+        "carbsG": {
+          "min": 2,
+          "max": 5,
+          "calc": 4
+        },
+        "fatG": {
+          "min": 1,
+          "max": 3,
+          "calc": 2
+        },
+        "fiberG": {
+          "min": 0,
+          "max": 1,
+          "calc": 0
+        },
+        "vegetablesG": 0,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 2,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "whey_milk",
+      "name": "Whey con leche",
+      "category": "Batido",
+      "tags": [
+        "batido",
+        "proteina",
+        "lacteo"
+      ],
+      "ingredients": [
+        {
+          "name": "Whey",
+          "quantity": "25-30",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Leche desnatada",
+          "quantity": "200-250",
+          "unit": "ml",
+          "note": ""
+        }
+      ],
+      "preparation": "Agitar o batir.",
+      "nutrition": {
+        "calories": {
+          "min": 180,
+          "max": 230,
+          "calc": 205
+        },
+        "proteinG": {
+          "min": 28,
+          "max": 32,
+          "calc": 30
+        },
+        "carbsG": {
+          "min": 12,
+          "max": 18,
+          "calc": 15
+        },
+        "fatG": {
+          "min": 1,
+          "max": 4,
+          "calc": 2
+        },
+        "fiberG": {
+          "min": 0,
+          "max": 1,
+          "calc": 0
+        },
+        "vegetablesG": 0,
+        "fruitServings": 0
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 2,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "banana_whey",
+      "name": "Batido de plátano con whey",
+      "category": "Batido",
+      "tags": [
+        "batido",
+        "proteina",
+        "fruta"
+      ],
+      "ingredients": [
+        {
+          "name": "Whey",
+          "quantity": "25-30",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Plátano",
+          "quantity": "100",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Agua/hielo",
+          "quantity": "al gusto",
+          "unit": "",
+          "note": ""
+        }
+      ],
+      "preparation": "Triturar hasta homogeneizar.",
+      "nutrition": {
+        "calories": {
+          "min": 185,
+          "max": 230,
+          "calc": 208
+        },
+        "proteinG": {
+          "min": 21,
+          "max": 25,
+          "calc": 23
+        },
+        "carbsG": {
+          "min": 25,
+          "max": 35,
+          "calc": 30
+        },
+        "fatG": {
+          "min": 1,
+          "max": 3,
+          "calc": 2
+        },
+        "fiberG": {
+          "min": 2,
+          "max": 4,
+          "calc": 3
+        },
+        "vegetablesG": 0,
+        "fruitServings": 1
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 3,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "overnight_oats",
+      "name": "Overnight oats proteico",
+      "category": "Desayuno",
+      "tags": [
+        "desayuno",
+        "avena",
+        "proteina",
+        "fruta"
+      ],
+      "ingredients": [
+        {
+          "name": "Avena",
+          "quantity": "40",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Skyr",
+          "quantity": "150",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Leche",
+          "quantity": "100",
+          "unit": "ml",
+          "note": ""
+        },
+        {
+          "name": "Fruta",
+          "quantity": "120",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Whey",
+          "quantity": "10",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Mezclar la noche anterior y refrigerar.",
+      "nutrition": {
+        "calories": {
+          "min": 350,
+          "max": 410,
+          "calc": 380
+        },
+        "proteinG": {
+          "min": 27,
+          "max": 32,
+          "calc": 30
+        },
+        "carbsG": {
+          "min": 48,
+          "max": 58,
+          "calc": 53
+        },
+        "fatG": {
+          "min": 4,
+          "max": 8,
+          "calc": 6
+        },
+        "fiberG": {
+          "min": 7,
+          "max": 10,
+          "calc": 8
+        },
+        "vegetablesG": 0,
+        "fruitServings": 1
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 3,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "porridge",
+      "name": "Porridge de cacao y plátano",
+      "category": "Desayuno",
+      "tags": [
+        "desayuno",
+        "avena",
+        "proteina",
+        "fruta"
+      ],
+      "ingredients": [
+        {
+          "name": "Avena",
+          "quantity": "40",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Leche",
+          "quantity": "200",
+          "unit": "ml",
+          "note": ""
+        },
+        {
+          "name": "Whey",
+          "quantity": "20",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Plátano",
+          "quantity": "80",
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "Cacao puro",
+          "quantity": "5",
+          "unit": "g",
+          "note": ""
+        }
+      ],
+      "preparation": "Cocer avena con leche; retirar, añadir whey y cacao; terminar con plátano.",
+      "nutrition": {
+        "calories": {
+          "min": 350,
+          "max": 420,
+          "calc": 385
+        },
+        "proteinG": {
+          "min": 28,
+          "max": 34,
+          "calc": 31
+        },
+        "carbsG": {
+          "min": 50,
+          "max": 60,
+          "calc": 55
+        },
+        "fatG": {
+          "min": 5,
+          "max": 9,
+          "calc": 7
+        },
+        "fiberG": {
+          "min": 6,
+          "max": 9,
+          "calc": 8
+        },
+        "vegetablesG": 0,
+        "fruitServings": 0.5
+      },
+      "weeklyMetadata": {
+        "fishServings": 0,
+        "priorityOilyFishServings": 0,
+        "seafoodServings": 0,
+        "legumeServings": 0,
+        "redMeatServings": 0,
+        "poultryServings": 0,
+        "eggUnits": 0,
+        "nutsServings": 0
+      },
+      "timeMinutes": 8,
+      "freezable": false,
+      "notes": "",
+      "version": 1,
+      "updatedAt": "2026-09-07"
+    }
+  ]
+}

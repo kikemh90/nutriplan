@@ -365,12 +365,23 @@ function recipeHtml(r){
 }
 function metricBox(l,v){return `<div class="metric-box"><div class="label">${l}</div><div class="value">${v}</div></div>`}
 
+function populateModalSlot(selectedSlot){
+  const select=document.getElementById("modalSlot");
+  const slot=selectedSlot && SLOT_LABELS[selectedSlot] ? selectedSlot : "comida";
+  select.innerHTML=SLOT_ORDER.map(key =>
+    `<option value="${key}" ${key===slot?"selected":""}>${SLOT_LABELS[key]}</option>`
+  ).join("");
+  select.value=slot;
+  select.dataset.initialSlot=slot;
+}
+
 function openRecipeModal(recipeId=null, presetDay=null, presetSlot=null){
   state.modalRecipeId=recipeId || state.catalog.recipes[0]?.id || null;
 
-  // Preserve the exact planner slot the user clicked.
-  // Only fall back to "comida" when opening from the general Recipes section.
-  state.modalPresetSlot = presetSlot ?? "comida";
+  // If the user clicked a concrete planner slot, that slot is authoritative.
+  // Only calls coming from the general Recipes section fall back to "comida".
+  const requestedSlot = presetSlot && SLOT_LABELS[presetSlot] ? presetSlot : "comida";
+  state.modalPresetSlot=requestedSlot;
 
   const opts=[];
   for(let i=0;i<7;i++){
@@ -379,13 +390,13 @@ function openRecipeModal(recipeId=null, presetDay=null, presetSlot=null){
   }
   document.getElementById("modalDay").innerHTML=opts.join("");
 
+  // Populate Momento from scratch on every opening so no previous/static
+  // selection can leak into the new modal session.
+  populateModalSlot(requestedSlot);
+
   document.getElementById("modalRecipeSearch").value="";
   renderModalRecipeOptions();
   renderModalRecipePreview();
-
-  // Set "Momento" after rendering the recipe options to avoid any later
-  // initialization path restoring the default "comida".
-  document.getElementById("modalSlot").value=state.modalPresetSlot;
   document.getElementById("modalServings").value="1";
 
   document.getElementById("addRecipeModal").classList.add("open");
@@ -492,7 +503,12 @@ function renderDayPlanner(week){
       <input id="dayCompleteToggle" type="checkbox" ${day.complete?"checked":""}>
       <span><strong>Día completo</strong><br><span class="small muted">Márcalo si ya has terminado de planificar este día.</span></span>
     </label></div>`;
-  document.querySelectorAll("[data-slot-add]").forEach(btn=>btn.onclick=()=>openRecipePickerForSlot(btn.dataset.slot));
+  document.querySelectorAll("[data-slot-add]").forEach(btn=>{
+    btn.onclick=()=>{
+      const slot=btn.getAttribute("data-slot-add");
+      openRecipePickerForSlot(slot);
+    };
+  });
   document.querySelectorAll("[data-remove-entry]").forEach(btn=>btn.onclick=()=>removeEntry(Number(btn.dataset.removeEntry)));
   document.querySelectorAll("[data-entry-servings]").forEach(sel=>sel.onchange=()=>updateEntryServings(Number(sel.dataset.entryServings),Number(sel.value)));
   document.querySelectorAll("[data-water-change]").forEach(btn=>btn.onclick=()=>changeWater(Number(btn.dataset.waterChange)));
@@ -525,7 +541,8 @@ function planEntryHtml(e){
   </div>`;
 }
 function openRecipePickerForSlot(slot){
-  openRecipeModal(null,state.selectedDayIndex,slot);
+  const canonical=SLOT_LABELS[slot] ? slot : "comida";
+  openRecipeModal(null,state.selectedDayIndex,canonical);
 }
 function removeEntry(i){
   currentWeek().days[currentDayKey()].entries.splice(i,1);saveUser();renderWeek();

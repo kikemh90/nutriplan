@@ -250,3 +250,49 @@ th{position:sticky;top:0;background:#f0f4ef;z-index:1}
   .form-grid{grid-template-columns:1fr}
   .full-span{grid-column:auto}
 }
+
+/* Fase 4.9 — robust mobile modal behavior */
+.modal{
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  padding-top:max(12px, env(safe-area-inset-top));
+  padding-bottom:max(12px, env(safe-area-inset-bottom));
+  box-sizing:border-box;
+}
+.modal-card{
+  max-height:calc(100dvh - max(24px, env(safe-area-inset-top)) - max(24px, env(safe-area-inset-bottom)));
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  box-sizing:border-box;
+}
+.modal-head{
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:var(--surface);
+  padding-top:2px;
+  padding-bottom:10px;
+}
+@media(max-width:720px){
+  .modal{
+    align-items:flex-start;
+    justify-content:center;
+  }
+  .modal-card{
+    width:calc(100% - 16px);
+    max-width:520px;
+    margin:0 auto;
+    border-radius:18px;
+    transform:none;
+  }
+  .modal.open .modal-card{
+    transform:none;
+  }
+}
+@supports not (height: 100dvh){
+  .modal-card{
+    max-height:calc(100vh - 32px);
+  }
+}

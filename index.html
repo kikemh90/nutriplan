@@ -10,7 +10,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <title>NutriPlan</title>
-  <link rel="stylesheet" href="./styles.css?v=1.6">
+  <link rel="stylesheet" href="./styles.css?v=1.7">
 </head>
 <body>
   <div id="app">
@@ -37,9 +37,12 @@
       </section>
 
       <section id="view-foods" class="view">
-        <div class="section-head">
-          <h1>Alimentos</h1>
-          <p>Busca, filtra y añade alimentos a tu lista de compra.</p>
+        <div class="section-head section-head-actions">
+          <div>
+            <h1>Alimentos</h1>
+            <p>Busca, filtra y añade alimentos a tu lista de compra.</p>
+          </div>
+          <button id="newCustomFoodBtn" class="secondary-btn" type="button">＋ Nuevo alimento</button>
         </div>
         <div class="controls sticky-controls">
           <input id="foodSearch" class="search" type="search" placeholder="Buscar alimento, grupo, utilidad…">
@@ -50,9 +53,12 @@
       </section>
 
       <section id="view-recipes" class="view">
-        <div class="section-head">
-          <h1>Recetas</h1>
-          <p>Abre una receta para ver ingredientes, preparación y valores aproximados.</p>
+        <div class="section-head section-head-actions">
+          <div>
+            <h1>Recetas</h1>
+            <p>Abre una receta para ver ingredientes, preparación y valores aproximados.</p>
+          </div>
+          <button id="newCustomRecipeBtn" class="secondary-btn" type="button">＋ Nueva receta</button>
         </div>
         <div class="controls sticky-controls">
           <input id="recipeSearch" class="search" type="search" placeholder="Buscar receta o ingrediente…">
@@ -265,34 +271,34 @@
     </div>
   </div>
 
-  <script type="module" src="./js/app.js?v=1.6"></script>
 
   <div id="customFoodModal" class="modal" aria-hidden="true">
     <div class="modal-card">
       <div class="modal-head">
         <div>
           <h2 id="customFoodModalTitle">Nuevo alimento</h2>
-          <p class="small muted">Se guardará solo en este dispositivo.</p>
+          <p class="small muted">Alimento personal guardado solo en este dispositivo.</p>
         </div>
-        <button class="icon-btn" id="closeCustomFoodModalBtn" type="button">✕</button>
+        <button id="closeCustomFoodModalBtn" class="icon-btn" type="button">✕</button>
       </div>
       <div class="form-grid">
-        <label>Nombre<input id="customFoodName" type="text" placeholder="Ej. Yogur griego natural"></label>
-        <label>Grupo<input id="customFoodGroup" type="text" placeholder="Ej. Lácteos"></label>
+        <label>Nombre*<input id="customFoodName" type="text" placeholder="Ej. Yogur proteico fresa"></label>
+        <label>Grupo*<input id="customFoodGroup" type="text" placeholder="Ej. Lácteos"></label>
         <label>Clasificación
           <select id="customFoodClass">
-            <option value="nucleo">Núcleo</option>
-            <option value="rotacion">Rotación</option>
-            <option value="ocasional">Ocasional</option>
+            <option value="Núcleo">Núcleo</option>
+            <option value="Rotación">Rotación</option>
+            <option value="Ocasional">Ocasional</option>
           </select>
         </label>
-        <label>kcal / 100 g<input id="customFoodCalories" type="number" step="1" min="0"></label>
-        <label>Proteína / 100 g<input id="customFoodProtein" type="number" step="0.1" min="0"></label>
-        <label>Hidratos / 100 g<input id="customFoodCarbs" type="number" step="0.1" min="0"></label>
-        <label>Grasas / 100 g<input id="customFoodFat" type="number" step="0.1" min="0"></label>
-        <label>Fibra / 100 g<input id="customFoodFiber" type="number" step="0.1" min="0"></label>
-        <label>Sal / 100 g<input id="customFoodSalt" type="number" step="0.01" min="0"></label>
-        <label class="full-span">Nota<input id="customFoodNote" type="text" placeholder="Opcional"></label>
+        <label>Ración habitual<input id="customFoodPortion" type="text" placeholder="Ej. 150 g / 1 unidad"></label>
+        <label>kcal / 100 g<input id="customFoodCalories" type="number" min="0" step="1"></label>
+        <label>Proteína / 100 g<input id="customFoodProtein" type="number" min="0" step="0.1"></label>
+        <label>Hidratos / 100 g<input id="customFoodCarbs" type="number" min="0" step="0.1"></label>
+        <label>Grasas / 100 g<input id="customFoodFat" type="number" min="0" step="0.1"></label>
+        <label>Fibra / 100 g<input id="customFoodFiber" type="number" min="0" step="0.1"></label>
+        <label>Sal / 100 g<input id="customFoodSalt" type="number" min="0" step="0.01"></label>
+        <label class="full-span">Notas<input id="customFoodNote" type="text" placeholder="Opcional"></label>
       </div>
       <button id="saveCustomFoodBtn" class="primary-btn full" type="button">Guardar alimento</button>
     </div>
@@ -303,21 +309,23 @@
       <div class="modal-head">
         <div>
           <h2 id="customRecipeModalTitle">Nueva receta</h2>
-          <p class="small muted">Úsala para platos que repites y quieres conservar.</p>
+          <p class="small muted">Para platos que repites y quieres conservar en tu catálogo personal.</p>
         </div>
-        <button class="icon-btn" id="closeCustomRecipeModalBtn" type="button">✕</button>
+        <button id="closeCustomRecipeModalBtn" class="icon-btn" type="button">✕</button>
       </div>
       <div class="form-grid">
-        <label>Nombre<input id="customRecipeName" type="text" placeholder="Ej. Ensalada de pollo rápida"></label>
+        <label>Nombre*<input id="customRecipeName" type="text" placeholder="Ej. Ensalada de pollo rápida"></label>
         <label>Categoría<input id="customRecipeCategory" type="text" placeholder="Ej. Cena rápida"></label>
-        <label>kcal / ración<input id="customRecipeCalories" type="number" step="1" min="0"></label>
-        <label>Proteína g<input id="customRecipeProtein" type="number" step="0.1" min="0"></label>
-        <label>Hidratos g<input id="customRecipeCarbs" type="number" step="0.1" min="0"></label>
-        <label>Grasas g<input id="customRecipeFat" type="number" step="0.1" min="0"></label>
-        <label>Fibra g<input id="customRecipeFiber" type="number" step="0.1" min="0"></label>
-        <label>Verduras g<input id="customRecipeVeg" type="number" step="1" min="0"></label>
-        <label>Fruta raciones<input id="customRecipeFruit" type="number" step="0.5" min="0"></label>
-        <label class="full-span">Ingredientes / notas<textarea id="customRecipeNotes" rows="4" placeholder="Opcional"></textarea></label>
+        <label>kcal / ración*<input id="customRecipeCalories" type="number" min="0" step="1"></label>
+        <label>Proteína g<input id="customRecipeProtein" type="number" min="0" step="0.1"></label>
+        <label>Hidratos g<input id="customRecipeCarbs" type="number" min="0" step="0.1"></label>
+        <label>Grasas g<input id="customRecipeFat" type="number" min="0" step="0.1"></label>
+        <label>Fibra g<input id="customRecipeFiber" type="number" min="0" step="0.1"></label>
+        <label>Verduras g<input id="customRecipeVeg" type="number" min="0" step="1"></label>
+        <label>Fruta (raciones)<input id="customRecipeFruit" type="number" min="0" step="0.5"></label>
+        <label class="full-span">Ingredientes / preparación / notas
+          <textarea id="customRecipeNotes" rows="4" placeholder="Opcional"></textarea>
+        </label>
       </div>
       <button id="saveCustomRecipeBtn" class="primary-btn full" type="button">Guardar receta</button>
     </div>
@@ -328,25 +336,28 @@
       <div class="modal-head">
         <div>
           <h2>Comida manual</h2>
-          <p class="small muted">Para restaurantes, celebraciones o comidas fuera del catálogo.</p>
+          <p class="small muted">Para restaurantes, celebraciones o cualquier comida fuera del catálogo.</p>
         </div>
-        <button class="icon-btn" id="closeManualEntryModalBtn" type="button">✕</button>
+        <button id="closeManualEntryModalBtn" class="icon-btn" type="button">✕</button>
       </div>
       <div class="form-grid">
         <label>Nombre<input id="manualEntryName" type="text" placeholder="Ej. Cena restaurante"></label>
         <label>Momento<select id="manualEntrySlot"></select></label>
-        <label>kcal estimadas<input id="manualEntryCalories" type="number" step="1" min="0"></label>
-        <label>Proteína g<input id="manualEntryProtein" type="number" step="0.1" min="0"></label>
-        <label>Hidratos g<input id="manualEntryCarbs" type="number" step="0.1" min="0"></label>
-        <label>Grasas g<input id="manualEntryFat" type="number" step="0.1" min="0"></label>
-        <label>Fibra g<input id="manualEntryFiber" type="number" step="0.1" min="0"></label>
-        <label>Verduras g<input id="manualEntryVeg" type="number" step="1" min="0"></label>
-        <label>Fruta raciones<input id="manualEntryFruit" type="number" step="0.5" min="0"></label>
-        <label class="full-span">Detalle<textarea id="manualEntryNotes" rows="3" placeholder="Ej. Pizza + 2 cervezas + helado"></textarea></label>
+        <label>kcal estimadas*<input id="manualEntryCalories" type="number" min="0" step="1"></label>
+        <label>Proteína g<input id="manualEntryProtein" type="number" min="0" step="0.1"></label>
+        <label>Hidratos g<input id="manualEntryCarbs" type="number" min="0" step="0.1"></label>
+        <label>Grasas g<input id="manualEntryFat" type="number" min="0" step="0.1"></label>
+        <label>Fibra g<input id="manualEntryFiber" type="number" min="0" step="0.1"></label>
+        <label>Verduras g<input id="manualEntryVeg" type="number" min="0" step="1"></label>
+        <label>Fruta (raciones)<input id="manualEntryFruit" type="number" min="0" step="0.5"></label>
+        <label class="full-span">Detalle
+          <textarea id="manualEntryNotes" rows="3" placeholder="Ej. Pizza + 2 cervezas + helado"></textarea>
+        </label>
       </div>
       <button id="saveManualEntryBtn" class="primary-btn full" type="button">Añadir al calendario</button>
     </div>
   </div>
 
+  <script type="module" src="./js/app.js?v=1.7"></script>
 </body>
 </html>

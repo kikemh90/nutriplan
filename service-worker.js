@@ -1,13 +1,13 @@
 
-const CACHE_VERSION = "nutriplan-pwa-v1.6";
+const CACHE_VERSION = "nutriplan-pwa-v1.7";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./styles.css",
-  "./styles.css?v=1.6",
+  "./styles.css?v=1.7",
   "./manifest.webmanifest",
   "./js/app.js",
-  "./js/app.js?v=1.6",
+  "./js/app.js?v=1.7",
   "./js/nutrition_engine.js",
   "./js/catalog_manager.js",
   "./data/nutrition_catalog.json",

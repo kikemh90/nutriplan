@@ -34,8 +34,10 @@ async function boot(){
   ]);
   state.catalog = loadJson("nutriplan.catalog.v2", catalogDefault);
   state.rules = loadJson("nutriplan.rules.v2", rulesDefault);
-  state.user = loadJson("nutriplan.userState.v2", {schemaVersion:2,shoppingList:[],water:{},weeks:{}});
-  state.recipeById = new Map(state.catalog.recipes.map(r=>[r.id,r]));
+  state.user = loadJson("nutriplan.userState.v2", {schemaVersion:2,shoppingList:[],water:{},weeks:{},customFoods:[],customRecipes:[]});
+  state.user.customFoods ||= [];
+  state.user.customRecipes ||= [];
+  rebuildRecipeMap();
   migrateEditableHistoryModel();
   ensureActiveWeek();
   wireNavigation();
@@ -63,7 +65,7 @@ function migrateEditableHistoryModel(){
     for(const day of Object.values(week.days||{})){
       day.entries ||= [];
       for(const e of day.entries){
-        if(e.type==="simple") continue;
+        if(e.type==="simple" || e.type==="manual") continue;
         if(!e.snapshot && e.recipeId){
           const recipe=state.recipeById.get(e.recipeId);
           if(recipe) e.snapshot=recipeSnapshot(recipe,Number(e.servings||1));
@@ -156,6 +158,9 @@ function wireGlobalActions(){
   document.getElementById("saveCustomRecipeBtn").onclick=saveCustomRecipe;
   document.getElementById("closeManualEntryModalBtn").onclick=()=>closeSimpleModal("manualEntryModal");
   document.getElementById("saveManualEntryBtn").onclick=saveManualEntry;
+  ["customFoodModal","customRecipeModal","manualEntryModal"].forEach(id=>{
+    document.getElementById(id).addEventListener("click",e=>{ if(e.target.id===id) closeSimpleModal(id); });
+  });
 
   document.getElementById("prevWeekBtn").onclick=()=>changeWeek(-7);
   document.getElementById("nextWeekBtn").onclick=()=>changeWeek(7);
@@ -191,23 +196,6 @@ function wireGlobalActions(){
   const updateBtn=document.getElementById("checkUpdateBtn");
   if(updateBtn) updateBtn.onclick=checkForPwaUpdate;
 }
-
-
-function rebuildRecipeMap(){
-  const combined=[...(state.catalog.recipes||[]),...(state.user.customRecipes||[])];
-  state.recipeById=new Map(combined.map(r=>[r.id,r]));
-}
-function allFoods(){
-  return [...(state.catalog.foods||[]),...(state.user.customFoods||[])];
-}
-function allRecipes(){
-  return [...(state.catalog.recipes||[]),...(state.user.customRecipes||[])];
-}
-function uid(prefix){
-  return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
-}
-function openSimpleModal(id){ document.getElementById(id).classList.add("open"); }
-function closeSimpleModal(id){ document.getElementById(id).classList.remove("open"); }
 
 function renderGuide(){
   const d=state.rules.daily,w=state.rules.weekly;
@@ -256,19 +244,46 @@ function renderGuide(){
     </div>`;
 }
 
+
+function rebuildRecipeMap(){
+  const combined=[...(state.catalog.recipes||[]),...(state.user?.customRecipes||[])];
+  state.recipeById=new Map(combined.map(r=>[r.id,r]));
+}
+function allFoods(){
+  return [...(state.catalog.foods||[]),...(state.user?.customFoods||[])];
+}
+function allRecipes(){
+  return [...(state.catalog.recipes||[]),...(state.user?.customRecipes||[])];
+}
+function uid(prefix){
+  return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
+}
+function openSimpleModal(id){
+  const el=document.getElementById(id);
+  el.classList.add("open");
+  el.setAttribute("aria-hidden","false");
+}
+function closeSimpleModal(id){
+  const el=document.getElementById(id);
+  el.classList.remove("open");
+  el.setAttribute("aria-hidden","true");
+}
+function numberOrZero(id){ return Number(document.getElementById(id).value||0); }
+
 function fillSelect(el, options, firstLabel){
   el.innerHTML=`<option value="">${firstLabel}</option>`+options.map(x=>`<option value="${escAttr(x)}">${esc(x)}</option>`).join("");
 }
 function renderFoodFilters(){
-  fillSelect(document.getElementById("foodGroupFilter"), unique(state.catalog.foods.map(x=>x.group)), "Todos los grupos");
-  fillSelect(document.getElementById("foodClassFilter"), unique(state.catalog.foods.map(x=>x.classification)), "Todas las categorías");
+  const foods=allFoods();
+  fillSelect(document.getElementById("foodGroupFilter"), unique(foods.map(x=>x.group)), "Todos los grupos");
+  fillSelect(document.getElementById("foodClassFilter"), unique(foods.map(x=>x.classification)), "Todas las categorías");
 }
 function renderFoods(){
   const q=norm(document.getElementById("foodSearch").value);
   const group=document.getElementById("foodGroupFilter").value;
   const cls=document.getElementById("foodClassFilter").value;
   const selected=new Set((state.user.shoppingList||[]).map(x=>x.foodId));
-  const rows=state.catalog.foods.filter(f=>{
+  const rows=allFoods().filter(f=>{
     const hay=[f.name,f.group,f.classification,f.description,f.portion,...(f.tags||[]),...(f.aliases||[])].join(" ");
     return (!q||norm(hay).includes(q))&&(!group||f.group===group)&&(!cls||f.classification===cls);
   });
@@ -276,16 +291,19 @@ function renderFoods(){
     <article class="card food-row">
       <input class="food-check" type="checkbox" ${selected.has(f.id)?"checked":""} data-food="${escAttr(f.id)}">
       <div class="food-body">
-        <div class="card-title">${esc(f.name)}</div>
+        <div class="card-title">${esc(f.name)}${f.custom?` <span class="pill">Personalizado</span>`:""}</div>
         <div class="food-meta">${esc(f.group)} · ${esc(f.classification)}</div>
-        <div class="food-meta"><strong>Ración:</strong> ${esc(f.portion)}</div>
-        <div class="small">${esc(f.description)}</div>
+        <div class="food-meta"><strong>Ración:</strong> ${esc(f.portion||"Sin definir")}</div>
+        <div class="small">${esc(f.description||"")}</div>
+        ${f.custom?`<div class="inline-actions"><button class="text-btn" data-edit-food="${escAttr(f.id)}" type="button">Editar</button><button class="text-btn danger" data-delete-food="${escAttr(f.id)}" type="button">Eliminar</button></div>`:""}
       </div>
     </article>`).join("") || `<div class="card muted">No se han encontrado alimentos.</div>`;
 
   document.querySelectorAll("[data-food]").forEach(ch=>{
     ch.onchange=()=>toggleShoppingFood(ch.dataset.food,ch.checked);
   });
+  document.querySelectorAll("[data-edit-food]").forEach(btn=>btn.onclick=()=>openCustomFoodModal(btn.dataset.editFood));
+  document.querySelectorAll("[data-delete-food]").forEach(btn=>btn.onclick=()=>deleteCustomFood(btn.dataset.deleteFood));
 }
 
 function toggleShoppingFood(foodId,checked){
@@ -307,7 +325,7 @@ function toggleShoppingFood(foodId,checked){
 function renderShopping(){
   state.user.shoppingList ||= [];
   document.getElementById("shoppingCount").textContent=state.user.shoppingList.length;
-  const byId=new Map(state.catalog.foods.map(x=>[x.id,x]));
+  const byId=new Map(allFoods().map(x=>[x.id,x]));
   document.getElementById("shoppingList").innerHTML=state.user.shoppingList.map((item,i)=>{
     const f=byId.get(item.foodId);
     return `<div class="shopping-row">
@@ -340,8 +358,9 @@ function openShopping(){document.getElementById("shoppingDrawer").classList.add(
 function closeShopping(){document.getElementById("shoppingDrawer").classList.remove("open");document.getElementById("drawerBackdrop").classList.remove("open")}
 
 function renderRecipeFilters(){
-  fillSelect(document.getElementById("recipeCategoryFilter"), unique(state.catalog.recipes.map(x=>x.category)), "Todas las categorías");
-  const tags=unique(state.catalog.recipes.flatMap(x=>x.tags||[])).filter(x=>x.length<30);
+  const recipes=allRecipes();
+  fillSelect(document.getElementById("recipeCategoryFilter"), unique(recipes.map(x=>x.category)), "Todas las categorías");
+  const tags=unique(recipes.flatMap(x=>x.tags||[])).filter(x=>x.length<30);
   fillSelect(document.getElementById("recipeTagFilter"), tags, "Todas las etiquetas");
 }
 function renderRecipes(){
@@ -389,10 +408,8 @@ function recipeHtml(r){
         ${r.timeMinutes?`<span class="pill">≈${r.timeMinutes} min</span>`:""}
         ${r.freezable?`<span class="pill">Congelable</span>`:""}
       </div>
-      <div class="recipe-action-stack">
-        <button class="primary-btn full" style="margin-top:12px" data-add-recipe="${escAttr(r.id)}">Añadir al calendario</button>
-        ${r.custom?`<div class="inline-actions"><button class="text-btn" data-edit-recipe="${escAttr(r.id)}">Editar</button><button class="text-btn danger" data-delete-recipe="${escAttr(r.id)}">Eliminar</button></div>`:""}
-      </div>
+      <button class="primary-btn full" style="margin-top:12px" data-add-recipe="${escAttr(r.id)}">Añadir al calendario</button>
+      ${r.custom?`<div class="inline-actions"><button class="text-btn" data-edit-recipe="${escAttr(r.id)}" type="button">Editar</button><button class="text-btn danger" data-delete-recipe="${escAttr(r.id)}" type="button">Eliminar</button></div>`:""}
     </div>
   </article>`;
 }
@@ -527,8 +544,8 @@ function renderDayPlanner(week){
       <div class="slot-head">
         <div class="slot-title">${SLOT_LABELS[slot]}</div>
         <div class="slot-head-actions">
-          <button class="slot-add" data-slot-add="${slot}" title="Añadir receta">＋</button>
-          <button class="slot-manual" data-slot-manual="${slot}" title="Añadir comida manual">✎</button>
+          <button class="slot-add" data-slot-add="${slot}" type="button" title="Añadir receta">＋</button>
+          <button class="slot-manual" data-slot-manual="${slot}" type="button" title="Añadir comida manual">✎</button>
         </div>
       </div>
       ${content || `<div class="small muted">Sin añadir</div>`}
@@ -566,7 +583,7 @@ function planEntryHtml(e){
         <div class="plan-entry-name">${esc(e.name||"Comida manual")} <span class="pill">Manual</span></div>
         <div class="plan-entry-meta">${kcal} kcal${e.notes?` · ${esc(e.notes)}`:""}</div>
       </div>
-      <div class="plan-entry-actions"><button class="remove-entry" data-remove-entry="${e._i}">✕</button></div>
+      <div class="plan-entry-actions"><button class="remove-entry" data-remove-entry="${e._i}" type="button">✕</button></div>
     </div>`;
   }
   if(e.type==="simple"){
@@ -627,19 +644,42 @@ function renderDayMetrics(week){
 function assessWeekWithSimpleItems(week){
   const clone=structuredClone(week);
   for(const day of Object.values(clone.days||{})){
-    const fruit=(day.entries||[]).filter(e=>e.type==="simple"&&e.simpleType==="fruit").length;
+    const transformed=[];
+    let fruit=0;
+    for(const e of day.entries||[]){
+      if(e.type==="simple" && e.simpleType==="fruit"){
+        fruit++;
+        continue;
+      }
+      if(e.type==="manual"){
+        const n=e.nutrition||{};
+        transformed.push({
+          recipeId:"__manual__",servings:1,
+          snapshot:{
+            recipeId:"__manual__",recipeVersion:1,recipeName:e.name||"Comida manual",servings:1,
+            nutrition:{
+              calories:Number(n.calories||0),proteinG:Number(n.proteinG||0),carbsG:Number(n.carbsG||0),
+              fatG:Number(n.fatG||0),fiberG:Number(n.fiberG||0),vegetablesG:Number(n.vegetablesG||0),
+              fruitServings:Number(n.fruitServings||0)
+            },
+            weeklyMetadata:{fishServings:0,priorityOilyFishServings:0,seafoodServings:0,legumeServings:0,redMeatServings:0,poultryServings:0,eggUnits:0,nutsServings:0}
+          }
+        });
+        continue;
+      }
+      transformed.push(e);
+    }
     if(fruit){
-      const fake={
+      transformed.push({
         recipeId:"__simple_fruit__",servings:1,
         snapshot:{
-          recipeId:"__simple_fruit__",recipeVersion:1,recipeName:"1 ración de fruta",servings:1,
+          recipeId:"__simple_fruit__",recipeVersion:1,recipeName:"Fruta",servings:1,
           nutrition:{calories:0,proteinG:0,carbsG:0,fatG:0,fiberG:0,vegetablesG:0,fruitServings:fruit},
           weeklyMetadata:{fishServings:0,priorityOilyFishServings:0,seafoodServings:0,legumeServings:0,redMeatServings:0,poultryServings:0,eggUnits:0,nutsServings:0}
         }
-      };
-      day.entries=(day.entries||[]).filter(e=>!(e.type==="simple"&&e.simpleType==="fruit"));
-      day.entries.push(fake);
+      });
     }
+    day.entries=transformed;
   }
   return assessWeekObject(clone,state.recipeById,effectiveRulesForWeek(week),{historical:true});
 }
@@ -737,7 +777,7 @@ async function importCatalogFromFile(file){
     }
     localStorage.setItem("nutriplan.catalog.v2",JSON.stringify(next));
     state.catalog=next;
-    state.recipeById=new Map(next.recipes.map(r=>[r.id,r]));
+    rebuildRecipeMap();
     refreshCurrentAndFutureRecipeSnapshots();
     renderFoodFilters();renderFoods();renderRecipeFilters();renderRecipes();renderMatrixFilters();renderMatrix();renderSettingsInfo();renderWeek();
     alert("Catálogo actualizado. La semana actual y las futuras se han recalculado. Las semanas pasadas conservan sus valores históricos.");
@@ -764,14 +804,16 @@ function validateCatalogImport(c){
   }
 }
 function findCurrentFutureMissingRecipeIds(nextCatalog){
-  const ids=new Set(nextCatalog.recipes.map(r=>r.id)),missing=new Set();
+  const ids=new Set([...(nextCatalog.recipes||[]).map(r=>r.id),...(state.user.customRecipes||[]).map(r=>r.id)]);
+  const missing=new Set();
   const current=startOfWeek(new Date());
   for(const [key,week] of Object.entries(state.user.weeks||{})){
     const ws=new Date(`${week.startDate||key}T12:00:00`);
     if(ws<current) continue;
     for(const day of Object.values(week.days||{})){
       for(const e of day.entries||[]){
-        if(e.recipeId&&!ids.has(e.recipeId)&&e.type!=="simple") missing.add(e.recipeId);
+        if(e.type==="simple"||e.type==="manual"||e.snapshot) continue;
+        if(e.recipeId&&!ids.has(e.recipeId)) missing.add(e.recipeId);
       }
     }
   }
@@ -795,7 +837,7 @@ function refreshCurrentAndFutureRecipeSnapshots(){
     if(ws<current) continue;
     for(const day of Object.values(week.days||{})){
       for(const e of day.entries||[]){
-        if(!e.recipeId || e.type==="simple") continue;
+        if(!e.recipeId || e.type==="simple" || e.type==="manual") continue;
         const recipe=state.recipeById.get(e.recipeId);
         if(recipe) e.snapshot=recipeSnapshot(recipe,Number(e.servings||1));
       }
@@ -834,6 +876,8 @@ async function importBackupFromFile(file){
     localStorage.setItem("nutriplan.rules.v2",JSON.stringify(b.rules));
     localStorage.setItem("nutriplan.userState.v2",JSON.stringify(b.userState));
     state.catalog=b.catalog;state.rules=b.rules;state.user=b.userState;
+    state.user.customFoods ||= [];
+    state.user.customRecipes ||= [];
     rebuildRecipeMap();
     renderGuide();renderFoodFilters();renderFoods();renderRecipeFilters();renderRecipes();renderMatrixFilters();renderMatrix();renderShopping();renderSettingsInfo();renderWeek();
     alert("Copia de seguridad restaurada.");
@@ -847,10 +891,10 @@ function downloadJson(data,filename){
 
 
 function getDayTotal(day){
-  const recipeEntries=(day?.entries||[]).filter(e=>e.type!=="manual");
+  const entries=day?.entries||[];
+  const recipeEntries=entries.filter(e=>e.type!=="manual");
   const total=sumResolvedEntries(recipeEntries,state.recipeById,{historical:true});
-  const manual=(day?.entries||[]).filter(e=>e.type==="manual");
-  for(const e of manual){
+  for(const e of entries.filter(e=>e.type==="manual")){
     const n=e.nutrition||{};
     total.calories += Number(n.calories||0);
     total.proteinG += Number(n.proteinG||0);
@@ -860,7 +904,7 @@ function getDayTotal(day){
     total.vegetablesG += Number(n.vegetablesG||0);
     total.fruitServings += Number(n.fruitServings||0);
   }
-  const simpleFruit=(day?.entries||[]).filter(e=>e.type==="simple"&&e.simpleType==="fruit").length;
+  const simpleFruit=entries.filter(e=>e.type==="simple"&&e.simpleType==="fruit").length;
   total.fruitServings += simpleFruit;
   return total;
 }
@@ -952,13 +996,23 @@ function openDateFromMonth(isoDate){
 }
 
 
+function customFoodDescription(f){
+  const n=f.nutrition||{};
+  const parts=[];
+  if(Number(n.caloriesPer100g)>0) parts.push(`${Math.round(n.caloriesPer100g)} kcal/100 g`);
+  if(Number(n.proteinPer100g)>0) parts.push(`P ${n.proteinPer100g} g`);
+  if(Number(n.fiberPer100g)>0) parts.push(`fibra ${n.fiberPer100g} g`);
+  if(Number(n.saltPer100g)>0) parts.push(`sal ${n.saltPer100g} g`);
+  return [parts.join(" · "),f.note||""].filter(Boolean).join(". ");
+}
 function openCustomFoodModal(id=null){
   state.customFoodEditId=id;
   const f=id ? (state.user.customFoods||[]).find(x=>x.id===id) : null;
   document.getElementById("customFoodModalTitle").textContent=f?"Editar alimento":"Nuevo alimento";
   document.getElementById("customFoodName").value=f?.name||"";
   document.getElementById("customFoodGroup").value=f?.group||"";
-  document.getElementById("customFoodClass").value=f?.classification||"nucleo";
+  document.getElementById("customFoodClass").value=f?.classification||"Núcleo";
+  document.getElementById("customFoodPortion").value=f?.portion||"";
   document.getElementById("customFoodCalories").value=f?.nutrition?.caloriesPer100g??"";
   document.getElementById("customFoodProtein").value=f?.nutrition?.proteinPer100g??"";
   document.getElementById("customFoodCarbs").value=f?.nutrition?.carbsPer100g??"";
@@ -971,45 +1025,59 @@ function openCustomFoodModal(id=null){
 function saveCustomFood(){
   const name=document.getElementById("customFoodName").value.trim();
   const group=document.getElementById("customFoodGroup").value.trim();
-  if(!name||!group){alert("Nombre y grupo son obligatorios.");return;}
+  if(!name||!group){ alert("Nombre y grupo son obligatorios."); return; }
+  const nutrition={
+    caloriesPer100g:numberOrZero("customFoodCalories"),
+    proteinPer100g:numberOrZero("customFoodProtein"),
+    carbsPer100g:numberOrZero("customFoodCarbs"),
+    fatPer100g:numberOrZero("customFoodFat"),
+    fiberPer100g:numberOrZero("customFoodFiber"),
+    saltPer100g:numberOrZero("customFoodSalt")
+  };
   const item={
-    id:state.customFoodEditId||uid("food"),
+    id:state.customFoodEditId||uid("custom_food"),
     name,group,
     classification:document.getElementById("customFoodClass").value,
+    portion:document.getElementById("customFoodPortion").value.trim()||"Referencia por 100 g",
+    description:"",
+    tags:["personalizado"],
+    aliases:[],
+    version:1,
     custom:true,
-    nutrition:{
-      caloriesPer100g:Number(document.getElementById("customFoodCalories").value||0),
-      proteinPer100g:Number(document.getElementById("customFoodProtein").value||0),
-      carbsPer100g:Number(document.getElementById("customFoodCarbs").value||0),
-      fatPer100g:Number(document.getElementById("customFoodFat").value||0),
-      fiberPer100g:Number(document.getElementById("customFoodFiber").value||0),
-      saltPer100g:Number(document.getElementById("customFoodSalt").value||0)
-    },
+    nutrition,
     note:document.getElementById("customFoodNote").value.trim()
   };
+  item.description=customFoodDescription(item);
   const arr=state.user.customFoods||[];
   const idx=arr.findIndex(x=>x.id===item.id);
   if(idx>=0) arr[idx]=item; else arr.push(item);
   state.user.customFoods=arr;
-  saveUser();closeSimpleModal("customFoodModal");renderFoods();
+  saveUser();
+  closeSimpleModal("customFoodModal");
+  renderFoodFilters(); renderFoods(); renderShopping();
 }
 function deleteCustomFood(id){
   if(!confirm("¿Eliminar este alimento personalizado?")) return;
   state.user.customFoods=(state.user.customFoods||[]).filter(x=>x.id!==id);
-  saveUser();renderFoods();
+  state.user.shoppingList=(state.user.shoppingList||[]).filter(x=>x.foodId!==id);
+  saveUser(); renderFoodFilters(); renderFoods(); renderShopping();
 }
 
+function rangeFromValue(v){
+  const n=Number(v||0);
+  return {min:n,max:n,calc:n};
+}
 function openCustomRecipeModal(id=null){
   state.customRecipeEditId=id;
   const r=id ? (state.user.customRecipes||[]).find(x=>x.id===id) : null;
   document.getElementById("customRecipeModalTitle").textContent=r?"Editar receta":"Nueva receta";
   document.getElementById("customRecipeName").value=r?.name||"";
   document.getElementById("customRecipeCategory").value=r?.category||"";
-  document.getElementById("customRecipeCalories").value=r?.nutrition?.calories?.min??"";
-  document.getElementById("customRecipeProtein").value=r?.nutrition?.proteinG?.min??"";
-  document.getElementById("customRecipeCarbs").value=r?.nutrition?.carbsG?.min??"";
-  document.getElementById("customRecipeFat").value=r?.nutrition?.fatG?.min??"";
-  document.getElementById("customRecipeFiber").value=r?.nutrition?.fiberG?.min??"";
+  document.getElementById("customRecipeCalories").value=r?.nutrition?.calories?.calc??"";
+  document.getElementById("customRecipeProtein").value=r?.nutrition?.proteinG?.calc??"";
+  document.getElementById("customRecipeCarbs").value=r?.nutrition?.carbsG?.calc??"";
+  document.getElementById("customRecipeFat").value=r?.nutrition?.fatG?.calc??"";
+  document.getElementById("customRecipeFiber").value=r?.nutrition?.fiberG?.calc??"";
   document.getElementById("customRecipeVeg").value=r?.nutrition?.vegetablesG??"";
   document.getElementById("customRecipeFruit").value=r?.nutrition?.fruitServings??"";
   document.getElementById("customRecipeNotes").value=r?.notes||"";
@@ -1017,75 +1085,84 @@ function openCustomRecipeModal(id=null){
 }
 function saveCustomRecipe(){
   const name=document.getElementById("customRecipeName").value.trim();
-  if(!name){alert("El nombre es obligatorio.");return;}
-  const range=v=>({min:Number(v||0),max:Number(v||0)});
+  const calories=numberOrZero("customRecipeCalories");
+  if(!name){ alert("El nombre es obligatorio."); return; }
+  if(calories<=0){ alert("Introduce las kcal aproximadas por ración."); return; }
+  const notes=document.getElementById("customRecipeNotes").value.trim();
   const item={
-    id:state.customRecipeEditId||uid("recipe"),
+    id:state.customRecipeEditId||uid("custom_recipe"),
     name,
     category:document.getElementById("customRecipeCategory").value.trim()||"Personalizada",
-    custom:true,
-    ingredients:[],
     tags:["personalizada"],
+    ingredients:[],
+    preparation:notes||"Receta personalizada.",
     nutrition:{
-      calories:range(document.getElementById("customRecipeCalories").value),
-      proteinG:range(document.getElementById("customRecipeProtein").value),
-      carbsG:range(document.getElementById("customRecipeCarbs").value),
-      fatG:range(document.getElementById("customRecipeFat").value),
-      fiberG:range(document.getElementById("customRecipeFiber").value),
-      vegetablesG:Number(document.getElementById("customRecipeVeg").value||0),
-      fruitServings:Number(document.getElementById("customRecipeFruit").value||0)
+      calories:rangeFromValue(calories),
+      proteinG:rangeFromValue(numberOrZero("customRecipeProtein")),
+      carbsG:rangeFromValue(numberOrZero("customRecipeCarbs")),
+      fatG:rangeFromValue(numberOrZero("customRecipeFat")),
+      fiberG:rangeFromValue(numberOrZero("customRecipeFiber")),
+      vegetablesG:numberOrZero("customRecipeVeg"),
+      fruitServings:numberOrZero("customRecipeFruit")
     },
-    metadata:{fish:0,priorityOilyFish:0,seafood:0,legume:0,redMeat:0,poultry:0,eggs:0,nuts:0},
-    notes:document.getElementById("customRecipeNotes").value.trim()
+    weeklyMetadata:{fishServings:0,priorityOilyFishServings:0,seafoodServings:0,legumeServings:0,redMeatServings:0,poultryServings:0,eggUnits:0,nutsServings:0},
+    timeMinutes:null,freezable:false,notes,
+    version:1,updatedAt:new Date().toISOString().slice(0,10),custom:true
   };
   const arr=state.user.customRecipes||[];
   const idx=arr.findIndex(x=>x.id===item.id);
   if(idx>=0) arr[idx]=item; else arr.push(item);
   state.user.customRecipes=arr;
-  rebuildRecipeMap();saveUser();closeSimpleModal("customRecipeModal");renderRecipes();
+  rebuildRecipeMap();
+  saveUser();
+  closeSimpleModal("customRecipeModal");
+  renderRecipeFilters(); renderRecipes(); renderMatrixFilters(); renderMatrix(); renderWeek();
 }
 function deleteCustomRecipe(id){
-  if(!confirm("¿Eliminar esta receta personalizada? Las entradas históricas con snapshot se conservarán.")) return;
+  if(!confirm("¿Eliminar esta receta personalizada? Las entradas ya añadidas al calendario conservarán su snapshot.")) return;
   state.user.customRecipes=(state.user.customRecipes||[]).filter(x=>x.id!==id);
-  rebuildRecipeMap();saveUser();renderRecipes();
+  rebuildRecipeMap(); saveUser();
+  renderRecipeFilters(); renderRecipes(); renderMatrixFilters(); renderMatrix();
 }
 
+function populateManualSlot(slot){
+  const selected=SLOT_LABELS[slot]?slot:"comida";
+  const select=document.getElementById("manualEntrySlot");
+  select.innerHTML=SLOT_ORDER.map(k=>`<option value="${k}" ${k===selected?"selected":""}>${SLOT_LABELS[k]}</option>`).join("");
+  select.value=selected;
+}
 function openManualEntryModal(slot){
   populateManualSlot(slot);
   ["manualEntryName","manualEntryCalories","manualEntryProtein","manualEntryCarbs","manualEntryFat","manualEntryFiber","manualEntryVeg","manualEntryFruit","manualEntryNotes"]
     .forEach(id=>document.getElementById(id).value="");
   openSimpleModal("manualEntryModal");
 }
-function populateManualSlot(slot){
-  const s=SLOT_LABELS[slot]?slot:"comida";
-  document.getElementById("manualEntrySlot").innerHTML=SLOT_ORDER.map(k=>`<option value="${k}" ${k===s?"selected":""}>${SLOT_LABELS[k]}</option>`).join("");
-}
 function saveManualEntry(){
-  const name=document.getElementById("manualEntryName").value.trim()||"Comida manual";
-  const calories=Number(document.getElementById("manualEntryCalories").value||0);
-  if(calories<=0){alert("Introduce al menos una estimación de calorías.");return;}
+  const calories=numberOrZero("manualEntryCalories");
+  if(calories<=0){ alert("Introduce al menos una estimación de calorías."); return; }
   const week=currentWeek(), dk=currentDayKey();
   week.days[dk] ||= {entries:[],complete:false};
+  week.days[dk].entries ||= [];
   week.days[dk].entries.push({
     type:"manual",
     slot:document.getElementById("manualEntrySlot").value,
-    name,
+    name:document.getElementById("manualEntryName").value.trim()||"Comida manual",
     notes:document.getElementById("manualEntryNotes").value.trim(),
     nutrition:{
       calories,
-      proteinG:Number(document.getElementById("manualEntryProtein").value||0),
-      carbsG:Number(document.getElementById("manualEntryCarbs").value||0),
-      fatG:Number(document.getElementById("manualEntryFat").value||0),
-      fiberG:Number(document.getElementById("manualEntryFiber").value||0),
-      vegetablesG:Number(document.getElementById("manualEntryVeg").value||0),
-      fruitServings:Number(document.getElementById("manualEntryFruit").value||0)
+      proteinG:numberOrZero("manualEntryProtein"),
+      carbsG:numberOrZero("manualEntryCarbs"),
+      fatG:numberOrZero("manualEntryFat"),
+      fiberG:numberOrZero("manualEntryFiber"),
+      vegetablesG:numberOrZero("manualEntryVeg"),
+      fruitServings:numberOrZero("manualEntryFruit")
     }
   });
-  saveUser();closeSimpleModal("manualEntryModal");renderWeek();
+  saveUser(); closeSimpleModal("manualEntryModal"); renderWeek();
 }
 
 function renderMatrixFilters(){
-  fillSelect(document.getElementById("matrixCategoryFilter"),unique(state.catalog.recipes.map(x=>x.category)),"Todas las categorías");
+  fillSelect(document.getElementById("matrixCategoryFilter"),unique(allRecipes().map(x=>x.category)),"Todas las categorías");
 }
 function renderMatrix(){
   const q=norm(document.getElementById("matrixSearch").value);

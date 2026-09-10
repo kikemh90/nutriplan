@@ -10,7 +10,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <title>NutriPlan</title>
-  <link rel="stylesheet" href="./styles.css?v=1.7">
+  <link rel="stylesheet" href="./styles.css?v=1.8">
 </head>
 <body>
   <div id="app">
@@ -283,7 +283,9 @@
       </div>
       <div class="form-grid">
         <label>Nombre*<input id="customFoodName" type="text" placeholder="Ej. Yogur proteico fresa"></label>
-        <label>Grupo*<input id="customFoodGroup" type="text" placeholder="Ej. Lácteos"></label>
+        <label>Grupo*
+          <select id="customFoodGroup"></select>
+        </label>
         <label>Clasificación
           <select id="customFoodClass">
             <option value="Núcleo">Núcleo</option>
@@ -315,7 +317,9 @@
       </div>
       <div class="form-grid">
         <label>Nombre*<input id="customRecipeName" type="text" placeholder="Ej. Ensalada de pollo rápida"></label>
-        <label>Categoría<input id="customRecipeCategory" type="text" placeholder="Ej. Cena rápida"></label>
+        <label>Categoría
+          <select id="customRecipeCategory"></select>
+        </label>
         <label>kcal / ración*<input id="customRecipeCalories" type="number" min="0" step="1"></label>
         <label>Proteína g<input id="customRecipeProtein" type="number" min="0" step="0.1"></label>
         <label>Hidratos g<input id="customRecipeCarbs" type="number" min="0" step="0.1"></label>
@@ -358,6 +362,6 @@
     </div>
   </div>
 
-  <script type="module" src="./js/app.js?v=1.7"></script>
+  <script type="module" src="./js/app.js?v=1.8"></script>
 </body>
 </html>

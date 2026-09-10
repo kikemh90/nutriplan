@@ -270,6 +270,25 @@ function closeSimpleModal(id){
 }
 function numberOrZero(id){ return Number(document.getElementById(id).value||0); }
 
+function existingFoodGroups(){
+  return unique(allFoods().map(x=>x.group).filter(Boolean)).filter(x=>x!=="Otros");
+}
+function existingRecipeCategories(){
+  return unique(allRecipes().map(x=>x.category).filter(Boolean)).filter(x=>x!=="Otros");
+}
+function populateCustomFoodGroupSelect(selected=null){
+  const select=document.getElementById("customFoodGroup");
+  const groups=[...existingFoodGroups(),"Otros"];
+  select.innerHTML=groups.map(g=>`<option value="${escAttr(g)}">${esc(g)}</option>`).join("");
+  select.value=(selected && groups.includes(selected)) ? selected : (groups[0]||"Otros");
+}
+function populateCustomRecipeCategorySelect(selected=null){
+  const select=document.getElementById("customRecipeCategory");
+  const categories=[...existingRecipeCategories(),"Otros"];
+  select.innerHTML=categories.map(c=>`<option value="${escAttr(c)}">${esc(c)}</option>`).join("");
+  select.value=(selected && categories.includes(selected)) ? selected : (categories[0]||"Otros");
+}
+
 function fillSelect(el, options, firstLabel){
   el.innerHTML=`<option value="">${firstLabel}</option>`+options.map(x=>`<option value="${escAttr(x)}">${esc(x)}</option>`).join("");
 }
@@ -1010,7 +1029,7 @@ function openCustomFoodModal(id=null){
   const f=id ? (state.user.customFoods||[]).find(x=>x.id===id) : null;
   document.getElementById("customFoodModalTitle").textContent=f?"Editar alimento":"Nuevo alimento";
   document.getElementById("customFoodName").value=f?.name||"";
-  document.getElementById("customFoodGroup").value=f?.group||"";
+  populateCustomFoodGroupSelect(f?.group||null);
   document.getElementById("customFoodClass").value=f?.classification||"Núcleo";
   document.getElementById("customFoodPortion").value=f?.portion||"";
   document.getElementById("customFoodCalories").value=f?.nutrition?.caloriesPer100g??"";
@@ -1024,7 +1043,7 @@ function openCustomFoodModal(id=null){
 }
 function saveCustomFood(){
   const name=document.getElementById("customFoodName").value.trim();
-  const group=document.getElementById("customFoodGroup").value.trim();
+  const group=document.getElementById("customFoodGroup").value;
   if(!name||!group){ alert("Nombre y grupo son obligatorios."); return; }
   const nutrition={
     caloriesPer100g:numberOrZero("customFoodCalories"),
@@ -1072,7 +1091,7 @@ function openCustomRecipeModal(id=null){
   const r=id ? (state.user.customRecipes||[]).find(x=>x.id===id) : null;
   document.getElementById("customRecipeModalTitle").textContent=r?"Editar receta":"Nueva receta";
   document.getElementById("customRecipeName").value=r?.name||"";
-  document.getElementById("customRecipeCategory").value=r?.category||"";
+  populateCustomRecipeCategorySelect(r?.category||null);
   document.getElementById("customRecipeCalories").value=r?.nutrition?.calories?.calc??"";
   document.getElementById("customRecipeProtein").value=r?.nutrition?.proteinG?.calc??"";
   document.getElementById("customRecipeCarbs").value=r?.nutrition?.carbsG?.calc??"";
@@ -1092,7 +1111,7 @@ function saveCustomRecipe(){
   const item={
     id:state.customRecipeEditId||uid("custom_recipe"),
     name,
-    category:document.getElementById("customRecipeCategory").value.trim()||"Personalizada",
+    category:document.getElementById("customRecipeCategory").value||"Otros",
     tags:["personalizada"],
     ingredients:[],
     preparation:notes||"Receta personalizada.",

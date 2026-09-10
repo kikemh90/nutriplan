@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "catalogVersion": "2026.09.07-v2",
+  "catalogVersion": "2026.09.10-v3",
   "name": "NutriPlan - catálogo nutricional",
   "description": "Catálogo editable y versionado. Las semanas activas/futuras usan la versión vigente; las semanas cerradas conservan snapshots nutricionales históricos.",
   "defaults": {
@@ -325,13 +325,13 @@
       "group": "Pescado",
       "classification": "Núcleo",
       "portion": "150-200 g",
-      "description": "Proteína, yodo y selenio; vigilar sal si procede.",
+      "description": "Proteína, yodo y selenio; vigilar sal si procede. Producto usado en patatas marineras: bacalao congelado con agua añadida, 48 kcal y 12 g proteína/100 g.",
       "tags": [
         "pescado",
         "pescado blanco"
       ],
       "aliases": [],
-      "version": 1
+      "version": 2
     },
     {
       "id": "monkfish",
@@ -469,13 +469,13 @@
       "group": "Marisco",
       "classification": "Núcleo",
       "portion": "150-200 g",
-      "description": "Proteína magra; muy versátiles y rápidas.",
+      "description": "Proteína magra; muy versátiles y rápidas. Producto usado en patatas marineras: gamba congelada con agua añadida; por etiqueta 46 kcal y 9,4 g proteína/100 g; en la receta se pesaron 165 g de gamba real escurrida.",
       "tags": [
         "marisco",
         "proteina"
       ],
       "aliases": [],
-      "version": 1
+      "version": 2
     },
     {
       "id": "prawns",
@@ -497,13 +497,13 @@
       "group": "Marisco",
       "classification": "Núcleo",
       "portion": "150-200 g",
-      "description": "Proteína, B12 y selenio; guisos y plancha.",
+      "description": "Proteína, B12 y selenio; guisos y plancha. Producto usado en patatas marineras: calamar/chipirón congelado con agua añadida, 50 kcal y 11 g proteína/100 g.",
       "tags": [
         "marisco",
         "cefalopodo"
       ],
       "aliases": [],
-      "version": 1
+      "version": 2
     },
     {
       "id": "cuttlefish",
@@ -685,16 +685,32 @@
     },
     {
       "id": "bread",
-      "name": "Pan integral real",
+      "name": "Pan de molde Auchan 100% integral de trigo sin corteza",
       "group": "Cereales, tubérculos y pan",
       "classification": "Núcleo",
       "portion": "40-80 g",
-      "description": "Útil en desayunos, hamburguesas y cenas rápidas.",
+      "description": "Pan integral habitual. 231 kcal/100 g · P 9,7 g · C 39 g · G 2,8 g · fibra 5,5 g · sal 1,0 g.",
       "tags": [
-        "carbohidrato"
+        "carbohidrato",
+        "pan integral",
+        "Auchan",
+        "habitual"
       ],
-      "aliases": [],
-      "version": 1
+      "aliases": [
+        "Pan integral real",
+        "Pan de molde integral Auchan"
+      ],
+      "version": 2,
+      "nutrition": {
+        "caloriesPer100g": 231,
+        "proteinPer100g": 9.7,
+        "carbsPer100g": 39,
+        "fatPer100g": 2.8,
+        "fiberPer100g": 5.5,
+        "saltPer100g": 1.0,
+        "sugarsPer100g": 4.1,
+        "saturatedFatPer100g": 0.8
+      }
     },
     {
       "id": "oats",
@@ -711,31 +727,72 @@
     },
     {
       "id": "wraps",
-      "name": "Tortillas integrales de trigo",
+      "name": "Tortillas integrales de trigo Auchan",
       "group": "Cereales, tubérculos y pan",
-      "classification": "Rotación",
-      "portion": "1-2 unidades",
-      "description": "Base para fajitas y burritos.",
+      "classification": "Núcleo",
+      "portion": "1-2 unidades (40 g/unidad; 118 kcal/unidad)",
+      "description": "Tortilla integral habitual con mucha fibra. 294 kcal/100 g · P 9,7 g · C 42 g · G 7,5 g · fibra 9,8 g · sal 0,88 g. 1 unidad (40 g): 118 kcal.",
       "tags": [
         "carbohidrato",
-        "conveniencia"
+        "conveniencia",
+        "integral",
+        "fajitas",
+        "Auchan",
+        "habitual"
       ],
-      "aliases": [],
-      "version": 1
+      "aliases": [
+        "Tortillas integrales de trigo"
+      ],
+      "version": 2,
+      "nutrition": {
+        "caloriesPer100g": 294,
+        "proteinPer100g": 9.7,
+        "carbsPer100g": 42,
+        "fatPer100g": 7.5,
+        "fiberPer100g": 9.8,
+        "saltPer100g": 0.88,
+        "sugarsPer100g": 1.9,
+        "saturatedFatPer100g": 1.4
+      },
+      "unitNutrition": {
+        "unit": "1 tortilla",
+        "grams": 40,
+        "calories": 118,
+        "proteinG": 3.9,
+        "carbsG": 17,
+        "fatG": 3.0,
+        "fiberG": 3.9,
+        "saltG": 0.35
+      }
     },
     {
       "id": "pizza_base",
-      "name": "Masa/base de pizza",
+      "name": "Base de pizza Auchan Ronde & Fine",
       "group": "Cereales, tubérculos y pan",
       "classification": "Rotación",
-      "portion": "≈140-160 g por pizza individual",
-      "description": "Permite pizza casera controlando toppings.",
+      "portion": "Según pizza; controlar el peso de base",
+      "description": "Base de pizza de rotación. 292 kcal/100 g · P 7,2 g · C 46 g · G 6,7 g · fibra 1,6 g · sal 1,9 g.",
       "tags": [
         "carbohidrato",
-        "conveniencia"
+        "conveniencia",
+        "pizza",
+        "Auchan"
       ],
-      "aliases": [],
-      "version": 1
+      "aliases": [
+        "Masa/base de pizza",
+        "Pizza Ronde & Fine"
+      ],
+      "version": 2,
+      "nutrition": {
+        "caloriesPer100g": 292,
+        "proteinPer100g": 7.2,
+        "carbsPer100g": 46,
+        "fatPer100g": 6.7,
+        "fiberPer100g": 1.6,
+        "saltPer100g": 1.9,
+        "sugarsPer100g": 0.7,
+        "saturatedFatPer100g": 0.6
+      }
     },
     {
       "id": "seasonal_fruit",
@@ -804,17 +861,32 @@
     },
     {
       "id": "skyr",
-      "name": "Skyr",
+      "name": "Skyr Auchan Protein+ fresa",
       "group": "Lácteos",
       "classification": "Núcleo",
       "portion": "150-200 g",
-      "description": "Alta densidad proteica.",
+      "description": "Lácteo proteico ligero. 47 kcal/100 g · P 6,9 g · C 4,5 g · G 0,2 g · azúcares 4,1 g · sal 0,13 g.",
       "tags": [
         "lacteo",
-        "proteina"
+        "proteina",
+        "skyr",
+        "Auchan",
+        "habitual"
       ],
-      "aliases": [],
-      "version": 1
+      "aliases": [
+        "Skyr",
+        "Skyr fresa Protein+"
+      ],
+      "version": 2,
+      "nutrition": {
+        "caloriesPer100g": 47,
+        "proteinPer100g": 6.9,
+        "carbsPer100g": 4.5,
+        "fatPer100g": 0.2,
+        "saltPer100g": 0.13,
+        "sugarsPer100g": 4.1,
+        "saturatedFatPer100g": 0.1
+      }
     },
     {
       "id": "quark",
@@ -991,6 +1063,123 @@
         "suplemento"
       ],
       "aliases": [],
+      "version": 1
+    },
+    {
+      "id": "anchovies_vinegar_auchan",
+      "name": "Boquerones en vinagre Auchan",
+      "group": "Pescado",
+      "classification": "Rotación",
+      "portion": "75 g escurridos (1 bandeja)",
+      "description": "Buena proteína y pescado azul, pero sal alta. 123 kcal/100 g · P 19 g · G 5,4 g · C 0 g · sal 3,0 g. Bandeja escurrida 75 g ≈92 kcal y ≈14 g proteína.",
+      "tags": [
+        "pescado",
+        "pescado azul",
+        "boquerones",
+        "Auchan",
+        "conveniencia"
+      ],
+      "aliases": [
+        "Boquerones en vinagre"
+      ],
+      "nutrition": {
+        "caloriesPer100g": 123,
+        "proteinPer100g": 19,
+        "carbsPer100g": 0,
+        "fatPer100g": 5.4,
+        "saltPer100g": 3.0,
+        "sugarsPer100g": 0,
+        "saturatedFatPer100g": 1.2
+      },
+      "version": 1
+    },
+    {
+      "id": "smoked_salmon_auchan",
+      "name": "Salmón ahumado Auchan",
+      "group": "Pescado",
+      "classification": "Rotación",
+      "portion": "50-100 g",
+      "description": "Proteína y omega-3; útil por conveniencia, con sal elevada. 170 kcal/100 g · P 20 g · G 9,8 g · C <0,5 g · sal 2,3 g · EPA+DHA 661 mg/100 g.",
+      "tags": [
+        "pescado",
+        "pescado azul",
+        "omega-3",
+        "salmón ahumado",
+        "Auchan"
+      ],
+      "aliases": [
+        "Salmón ahumado"
+      ],
+      "nutrition": {
+        "caloriesPer100g": 170,
+        "proteinPer100g": 20,
+        "carbsPer100g": 0.5,
+        "fatPer100g": 9.8,
+        "saltPer100g": 2.3,
+        "sugarsPer100g": 0.5,
+        "saturatedFatPer100g": 1.5
+      },
+      "omega3EPA_DHA_mgPer100g": 661,
+      "version": 1
+    },
+    {
+      "id": "surimi_auchan",
+      "name": "Surimi Deseos del Mar Auchan",
+      "group": "Pescado",
+      "classification": "Rotación",
+      "portion": "100-150 g",
+      "description": "Opción de conveniencia; más procesada y menos proteica que pescado/marisco entero. 123 kcal/100 g · P 10 g · C 9,8 g · G 4,7 g · fibra 0,7 g · sal 1,9 g.",
+      "tags": [
+        "pescado",
+        "surimi",
+        "conveniencia",
+        "Auchan"
+      ],
+      "aliases": [
+        "Surimi"
+      ],
+      "nutrition": {
+        "caloriesPer100g": 123,
+        "proteinPer100g": 10,
+        "carbsPer100g": 9.8,
+        "fatPer100g": 4.7,
+        "fiberPer100g": 0.7,
+        "saltPer100g": 1.9,
+        "sugarsPer100g": 3.1,
+        "saturatedFatPer100g": 0.5
+      },
+      "version": 1
+    },
+    {
+      "id": "rice_paper_auchan",
+      "name": "Obleas de arroz Auchan",
+      "group": "Cereales, tubérculos y pan",
+      "classification": "Rotación",
+      "portion": "2-4 obleas según relleno",
+      "description": "Base ligera para rollitos; casi todo almidón y poca proteína/fibra. 347 kcal/100 g · P 0,7 g · C 85 g · G <0,5 g · fibra 0,7 g · sal 0,54 g.",
+      "tags": [
+        "carbohidrato",
+        "arroz",
+        "obleas",
+        "rollitos",
+        "Auchan",
+        "conveniencia"
+      ],
+      "aliases": [
+        "Galettes de riz",
+        "Papel de arroz",
+        "Obleas vietnamitas"
+      ],
+      "nutrition": {
+        "caloriesPer100g": 347,
+        "proteinPer100g": 0.7,
+        "carbsPer100g": 85,
+        "fatPer100g": 0.5,
+        "fiberPer100g": 0.7,
+        "saltPer100g": 0.54,
+        "sugarsPer100g": 1.5,
+        "saturatedFatPer100g": 0.1
+      },
       "version": 1
     }
   ],
@@ -1722,80 +1911,84 @@
     },
     {
       "id": "seafood_potato_stew",
-      "name": "Guiso marinero de patata, gambas y chipirones",
+      "name": "Patatas marineras con bacalao, chipirones y gambas",
       "category": "Meal-prep",
       "tags": [
         "meal-prep",
+        "pescado",
         "marisco",
+        "bacalao",
         "chipirones",
-        "gambas"
+        "gambas",
+        "patata",
+        "receta real"
       ],
       "ingredients": [
         {
           "name": "Patata",
-          "quantity": "220",
-          "unit": "g",
-          "note": ""
+          "quantity": "≈188",
+          "unit": "g por ración",
+          "note": "750 g en el batch completo"
         },
         {
-          "name": "Chipirones/calamar limpio",
-          "quantity": "120",
-          "unit": "g",
-          "note": ""
+          "name": "Bacalao congelado",
+          "quantity": "90",
+          "unit": "g por ración",
+          "note": "360 g en el batch completo"
         },
         {
-          "name": "Gambas peladas",
-          "quantity": "100",
-          "unit": "g",
-          "note": ""
+          "name": "Chipirones/calamar congelado",
+          "quantity": "≈113",
+          "unit": "g por ración",
+          "note": "450 g en el batch completo"
         },
         {
-          "name": "Cebolla",
-          "quantity": "60",
-          "unit": "g",
-          "note": ""
+          "name": "Gamba pelada escurrida",
+          "quantity": "≈41",
+          "unit": "g por ración",
+          "note": "165 g reales escurridos; 350 g pesados antes de retirar agua"
         },
         {
-          "name": "Pimiento",
-          "quantity": "70",
-          "unit": "g",
-          "note": ""
-        },
-        {
-          "name": "Puerro",
-          "quantity": "50",
-          "unit": "g",
-          "note": ""
+          "name": "Cebolla + pimiento + puerro + zanahoria",
+          "quantity": "≈250",
+          "unit": "g por ración",
+          "note": "Cantidad estimada a partir de la preparación real"
         },
         {
           "name": "Tomate triturado",
-          "quantity": "100",
-          "unit": "g",
-          "note": ""
+          "quantity": "1/4",
+          "unit": "bote por ración",
+          "note": "1 bote en el batch; peso exacto del envase no registrado"
         },
         {
           "name": "AOVE",
-          "quantity": "8",
-          "unit": "g",
-          "note": ""
+          "quantity": "9",
+          "unit": "g por ración",
+          "note": "36 g en el batch completo"
+        },
+        {
+          "name": "Ajo",
+          "quantity": "1/2",
+          "unit": "diente por ración",
+          "note": "2 dientes en el batch completo"
         }
       ],
-      "preparation": "Sofreír verduras, añadir tomate y chipirones, incorporar patata y caldo; añadir las gambas al final.",
+      "preparation": "Sofreír ajo y verduras con el AOVE. Añadir tomate triturado y los chipirones; incorporar las patatas chascadas y líquido de cocción. Añadir el bacalao y terminar con las gambas para evitar sobrecocción.",
       "nutrition": {
         "calories": {
           "min": 470,
-          "max": 530,
-          "calc": 500
+          "max": 510,
+          "calc": 490
         },
         "proteinG": {
-          "min": 35,
-          "max": 40,
-          "calc": 38
+          "min": 33,
+          "max": 37,
+          "calc": 35
         },
         "carbsG": {
-          "min": 50,
-          "max": 60,
-          "calc": 55
+          "min": 55,
+          "max": 65,
+          "calc": 60
         },
         "fatG": {
           "min": 10,
@@ -1803,15 +1996,15 @@
           "calc": 12
         },
         "fiberG": {
-          "min": 7,
-          "max": 9,
-          "calc": 8
+          "min": 9,
+          "max": 12,
+          "calc": 10
         },
-        "vegetablesG": 280,
+        "vegetablesG": 350,
         "fruitServings": 0
       },
       "weeklyMetadata": {
-        "fishServings": 0,
+        "fishServings": 1,
         "priorityOilyFishServings": 0,
         "seafoodServings": 1,
         "legumeServings": 0,
@@ -1820,11 +2013,11 @@
         "eggUnits": 0,
         "nutsServings": 0
       },
-      "timeMinutes": 40,
+      "timeMinutes": 50,
       "freezable": true,
-      "notes": "La patata puede perder algo de textura al congelar.",
-      "version": 1,
-      "updatedAt": "2026-09-07"
+      "notes": "Receta real cocinada el 09/09/2026. Base de cálculo: 4 raciones. Las verduras se estimaron visualmente y el peso exacto del bote de tomate no quedó registrado, por lo que se mantiene un rango nutricional prudente. Si al servir resulta demasiado voluminosa, dividir en 5 reduce la ración a ≈390 kcal y ≈28 g de proteína.",
+      "version": 2,
+      "updatedAt": "2026-09-10"
     },
     {
       "id": "seafood_pasta",
@@ -3409,10 +3602,10 @@
       ],
       "ingredients": [
         {
-          "name": "Tortillas integrales",
+          "name": "Tortillas integrales de trigo Auchan",
           "quantity": "2",
-          "unit": "ud",
-          "note": "≈80-100 g total"
+          "unit": "ud (40 g/ud)",
+          "note": "236 kcal en total; 7,8 g fibra"
         },
         {
           "name": "Pollo",
@@ -3454,9 +3647,9 @@
       "preparation": "Saltear pollo, pimiento y cebolla; rellenar tortillas con tomate, guacamole y salsa.",
       "nutrition": {
         "calories": {
-          "min": 540,
-          "max": 650,
-          "calc": 595
+          "min": 530,
+          "max": 620,
+          "calc": 575
         },
         "proteinG": {
           "min": 38,
@@ -3464,19 +3657,19 @@
           "calc": 40
         },
         "carbsG": {
-          "min": 60,
-          "max": 75,
-          "calc": 68
+          "min": 48,
+          "max": 60,
+          "calc": 54
         },
         "fatG": {
-          "min": 16,
-          "max": 23,
-          "calc": 20
+          "min": 15,
+          "max": 21,
+          "calc": 18
         },
         "fiberG": {
-          "min": 8,
-          "max": 11,
-          "calc": 10
+          "min": 10,
+          "max": 13,
+          "calc": 11
         },
         "vegetablesG": 240,
         "fruitServings": 0
@@ -3493,9 +3686,9 @@
       },
       "timeMinutes": 20,
       "freezable": false,
-      "notes": "",
-      "version": 1,
-      "updatedAt": "2026-09-07"
+      "notes": "Tortillas actualizadas al producto habitual Auchan: 118 kcal por unidad de 40 g.",
+      "version": 2,
+      "updatedAt": "2026-09-10"
     },
     {
       "id": "shrimp_fajitas",
@@ -3508,10 +3701,10 @@
       ],
       "ingredients": [
         {
-          "name": "Tortillas integrales",
+          "name": "Tortillas integrales de trigo Auchan",
           "quantity": "2",
-          "unit": "ud",
-          "note": ""
+          "unit": "ud (40 g/ud)",
+          "note": "236 kcal en total; 7,8 g fibra"
         },
         {
           "name": "Gambas",
@@ -3554,28 +3747,28 @@
       "nutrition": {
         "calories": {
           "min": 500,
-          "max": 610,
-          "calc": 555
+          "max": 590,
+          "calc": 545
         },
         "proteinG": {
-          "min": 35,
-          "max": 41,
-          "calc": 38
+          "min": 34,
+          "max": 40,
+          "calc": 37
         },
         "carbsG": {
-          "min": 60,
-          "max": 75,
-          "calc": 68
+          "min": 48,
+          "max": 60,
+          "calc": 54
         },
         "fatG": {
           "min": 13,
-          "max": 20,
+          "max": 19,
           "calc": 16
         },
         "fiberG": {
-          "min": 8,
-          "max": 11,
-          "calc": 10
+          "min": 10,
+          "max": 13,
+          "calc": 11
         },
         "vegetablesG": 250,
         "fruitServings": 0
@@ -3592,9 +3785,9 @@
       },
       "timeMinutes": 15,
       "freezable": false,
-      "notes": "",
-      "version": 1,
-      "updatedAt": "2026-09-07"
+      "notes": "Tortillas actualizadas al producto habitual Auchan: 118 kcal por unidad de 40 g.",
+      "version": 2,
+      "updatedAt": "2026-09-10"
     },
     {
       "id": "beef_bean_burrito",
@@ -3707,10 +3900,10 @@
       ],
       "ingredients": [
         {
-          "name": "Masa/base",
+          "name": "Base de pizza Auchan Ronde & Fine",
           "quantity": "140-160",
           "unit": "g",
-          "note": ""
+          "note": "292 kcal/100 g; confirmar peso real usado si cambia el formato"
         },
         {
           "name": "Tomate triturado",
@@ -3752,29 +3945,29 @@
       "preparation": "Cubrir la base con tomate y toppings medidos; hornear a temperatura alta.",
       "nutrition": {
         "calories": {
-          "min": 650,
-          "max": 750,
-          "calc": 700
+          "min": 720,
+          "max": 830,
+          "calc": 775
         },
         "proteinG": {
           "min": 39,
-          "max": 45,
+          "max": 46,
           "calc": 42
         },
         "carbsG": {
-          "min": 75,
-          "max": 90,
-          "calc": 82
+          "min": 72,
+          "max": 86,
+          "calc": 79
         },
         "fatG": {
-          "min": 18,
-          "max": 26,
-          "calc": 22
+          "min": 20,
+          "max": 28,
+          "calc": 24
         },
         "fiberG": {
-          "min": 7,
-          "max": 10,
-          "calc": 8
+          "min": 5,
+          "max": 8,
+          "calc": 6
         },
         "vegetablesG": 280,
         "fruitServings": 0
@@ -3791,9 +3984,9 @@
       },
       "timeMinutes": 25,
       "freezable": false,
-      "notes": "",
-      "version": 1,
-      "updatedAt": "2026-09-07"
+      "notes": "Base actualizada al producto habitual Auchan Ronde & Fine (292 kcal/100 g).",
+      "version": 2,
+      "updatedAt": "2026-09-10"
     },
     {
       "id": "tuna_pizza",
@@ -3806,10 +3999,10 @@
       ],
       "ingredients": [
         {
-          "name": "Masa/base",
+          "name": "Base de pizza Auchan Ronde & Fine",
           "quantity": "140-160",
           "unit": "g",
-          "note": ""
+          "note": "292 kcal/100 g; confirmar peso real usado si cambia el formato"
         },
         {
           "name": "Tomate",
@@ -3851,29 +4044,29 @@
       "preparation": "Montar y hornear; escurrir bien el atún.",
       "nutrition": {
         "calories": {
-          "min": 630,
-          "max": 740,
-          "calc": 685
+          "min": 700,
+          "max": 810,
+          "calc": 755
         },
         "proteinG": {
           "min": 38,
-          "max": 43,
-          "calc": 40
+          "max": 44,
+          "calc": 41
         },
         "carbsG": {
-          "min": 75,
-          "max": 90,
-          "calc": 82
+          "min": 72,
+          "max": 86,
+          "calc": 79
         },
         "fatG": {
-          "min": 17,
-          "max": 25,
-          "calc": 21
+          "min": 19,
+          "max": 27,
+          "calc": 23
         },
         "fiberG": {
-          "min": 7,
-          "max": 10,
-          "calc": 8
+          "min": 5,
+          "max": 8,
+          "calc": 6
         },
         "vegetablesG": 290,
         "fruitServings": 0
@@ -3890,9 +4083,9 @@
       },
       "timeMinutes": 25,
       "freezable": false,
-      "notes": "",
-      "version": 1,
-      "updatedAt": "2026-09-07"
+      "notes": "Base actualizada al producto habitual Auchan Ronde & Fine (292 kcal/100 g).",
+      "version": 2,
+      "updatedAt": "2026-09-10"
     },
     {
       "id": "seafood_pizza",
@@ -3905,10 +4098,10 @@
       ],
       "ingredients": [
         {
-          "name": "Masa/base",
+          "name": "Base de pizza Auchan Ronde & Fine",
           "quantity": "140-160",
           "unit": "g",
-          "note": ""
+          "note": "292 kcal/100 g; confirmar peso real usado si cambia el formato"
         },
         {
           "name": "Tomate",
@@ -3950,29 +4143,29 @@
       "preparation": "Montar la pizza con tomate, mozzarella y marisco; hornear.",
       "nutrition": {
         "calories": {
-          "min": 650,
-          "max": 760,
-          "calc": 705
+          "min": 710,
+          "max": 830,
+          "calc": 770
         },
         "proteinG": {
           "min": 39,
-          "max": 45,
+          "max": 46,
           "calc": 42
         },
         "carbsG": {
-          "min": 75,
-          "max": 90,
-          "calc": 82
+          "min": 70,
+          "max": 84,
+          "calc": 77
         },
         "fatG": {
-          "min": 17,
-          "max": 25,
-          "calc": 21
+          "min": 19,
+          "max": 27,
+          "calc": 23
         },
         "fiberG": {
-          "min": 6,
-          "max": 9,
-          "calc": 8
+          "min": 4,
+          "max": 7,
+          "calc": 5
         },
         "vegetablesG": 200,
         "fruitServings": 0
@@ -3989,9 +4182,9 @@
       },
       "timeMinutes": 25,
       "freezable": false,
-      "notes": "",
-      "version": 1,
-      "updatedAt": "2026-09-07"
+      "notes": "Base actualizada al producto habitual Auchan Ronde & Fine (292 kcal/100 g).",
+      "version": 2,
+      "updatedAt": "2026-09-10"
     },
     {
       "id": "salmon_spinach_pasta",

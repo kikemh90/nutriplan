@@ -10,7 +10,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <title>NutriPlan</title>
-  <link rel="stylesheet" href="./styles.css?v=2.0">
+  <link rel="stylesheet" href="./styles.css?v=2.1">
 </head>
 <body>
   <div id="app">
@@ -199,8 +199,9 @@
       </div>
 
       <div class="settings-block">
-        <div class="settings-label">Catálogo instalado</div>
+        <div class="settings-label">Catálogo activo</div>
         <div id="catalogVersionLabel" class="settings-value"></div>
+        <div id="catalogSourceLabel" class="small muted"></div>
         <input id="catalogFileInput" type="file" accept=".json,application/json" hidden>
         <button id="importCatalogBtn" class="secondary-btn full">Importar catálogo</button>
       </div>
@@ -362,6 +363,6 @@
     </div>
   </div>
 
-  <script type="module" src="./js/app.js?v=2.0"></script>
+  <script type="module" src="./js/app.js?v=2.1"></script>
 </body>
 </html>

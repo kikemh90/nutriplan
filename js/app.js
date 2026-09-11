@@ -11,6 +11,7 @@ const SLOT_ORDER = Object.keys(SLOT_LABELS);
 
 const state = {
   catalog:null,
+  catalogSource:"github",
   rules:null,
   user:null,
   recipeById:new Map(),
@@ -25,20 +26,160 @@ const state = {
   lastShoppingRemoved:null
 };
 
+const IMPORTED_CATALOG_KEY="nutriplan.catalog.v2";
+const ACTIVE_CATALOG_META_KEY="nutriplan.activeCatalogMeta.v1";
+
+function validateCatalogImport(c){
+  if(!c || c.schemaVersion!==2 || !Array.isArray(c.foods) || !Array.isArray(c.recipes))
+    throw new Error("Formato de catálogo no compatible.");
+
+  const foodIds=new Set();
+  for(const f of c.foods){
+    if(!f.id || foodIds.has(f.id)) throw new Error("Hay alimentos con ID inválido o duplicado.");
+    foodIds.add(f.id);
+  }
+
+  const recipeIds=new Set();
+  for(const r of c.recipes){
+    if(!r.id || recipeIds.has(r.id) || !Number.isInteger(r.version))
+      throw new Error("Hay recetas con ID o versión inválidos.");
+    recipeIds.add(r.id);
+  }
+}
+
+function parseCatalogUpdatedAt(c){
+  const raw=c?.catalogUpdatedAt;
+  if(raw){
+    const t=Date.parse(raw);
+    if(Number.isFinite(t)) return t;
+  }
+  const version=String(c?.catalogVersion||"");
+  const m=version.match(/(\d{4})[.\-](\d{2})[.\-](\d{2})(?:[-_ ]?v(\d+))?/i);
+  if(m){
+    const [,y,mo,d,v] = m;
+    const base=Date.UTC(Number(y),Number(mo)-1,Number(d));
+    return base + Number(v||0);
+  }
+  return 0;
+}
+
+function compareCatalogs(a,b){
+  const ta=parseCatalogUpdatedAt(a), tb=parseCatalogUpdatedAt(b);
+  if(ta!==tb) return ta>tb ? 1 : -1;
+  const va=String(a?.catalogVersion||""), vb=String(b?.catalogVersion||"");
+  return va.localeCompare(vb,undefined,{numeric:true,sensitivity:"base"});
+}
+
+function catalogSignature(c){
+  return `${c?.catalogVersion||""}|${c?.catalogUpdatedAt||""}`;
+}
+
+function loadImportedCatalog(){
+  try{
+    const raw=localStorage.getItem(IMPORTED_CATALOG_KEY);
+    if(!raw) return null;
+    const c=JSON.parse(raw);
+    validateCatalogImport(c);
+    return c;
+  }catch{
+    return null;
+  }
+}
+
+function selectNewestCatalog(bundled, imported){
+  validateCatalogImport(bundled);
+  if(!imported) return {catalog:structuredClone(bundled),source:"github"};
+  return compareCatalogs(imported,bundled)>0
+    ? {catalog:structuredClone(imported),source:"import"}
+    : {catalog:structuredClone(bundled),source:"github"};
+}
+
+function getLastActiveCatalogMeta(){
+  try{return JSON.parse(localStorage.getItem(ACTIVE_CATALOG_META_KEY)||"null");}
+  catch{return null;}
+}
+
+function saveActiveCatalogMeta(c,source){
+  localStorage.setItem(ACTIVE_CATALOG_META_KEY,JSON.stringify({
+    signature:catalogSignature(c),
+    catalogVersion:c.catalogVersion||null,
+    catalogUpdatedAt:c.catalogUpdatedAt||null,
+    source,
+    activatedAt:new Date().toISOString()
+  }));
+}
+
+function compareCatalogEntries(current,next){
+  const currentFoods=new Map((current.foods||[]).map(x=>[x.id,x]));
+  const nextFoods=new Map((next.foods||[]).map(x=>[x.id,x]));
+  const currentRecipes=new Map((current.recipes||[]).map(x=>[x.id,x]));
+  const nextRecipes=new Map((next.recipes||[]).map(x=>[x.id,x]));
+  return {
+    removedFoods:[...currentFoods.values()].filter(x=>!nextFoods.has(x.id)),
+    removedRecipes:[...currentRecipes.values()].filter(x=>!nextRecipes.has(x.id))
+  };
+}
+
+function currentFutureUsagesForRecipeIds(ids){
+  const wanted=new Set(ids);
+  const found=new Map();
+  const current=startOfWeek(new Date());
+  for(const [key,week] of Object.entries(state.user?.weeks||{})){
+    const ws=new Date(`${week.startDate||key}T12:00:00`);
+    if(ws<current) continue;
+    for(const [dk,day] of Object.entries(week.days||{})){
+      for(const e of day.entries||[]){
+        if(e.recipeId && wanted.has(e.recipeId)){
+          if(!found.has(e.recipeId)) found.set(e.recipeId,[]);
+          found.get(e.recipeId).push(dk);
+        }
+      }
+    }
+  }
+  return found;
+}
+
+function activateCatalog(next,source,{refresh=true}={}){
+  validateCatalogImport(next);
+  state.catalog=structuredClone(next);
+  state.catalogSource=source;
+  rebuildRecipeMap();
+  if(refresh) refreshCurrentAndFutureRecipeSnapshots();
+  saveActiveCatalogMeta(state.catalog,state.catalogSource);
+  renderFoodFilters();renderFoods();
+  renderRecipeFilters();renderRecipes();
+  renderMatrixFilters();renderMatrix();
+  renderSettingsInfo();renderWeek();
+}
+
 await boot();
 
 async function boot(){
   const [catalogDefault, rulesDefault] = await Promise.all([
-    fetch("./data/nutrition_catalog.json").then(r=>r.json()),
+    fetch("./data/nutrition_catalog.json",{cache:"no-store"}).then(r=>r.json()),
     fetch("./data/nutrition_rules.json").then(r=>r.json())
   ]);
-  state.catalog = loadJson("nutriplan.catalog.v2", catalogDefault);
+
   state.rules = loadJson("nutriplan.rules.v2", rulesDefault);
   state.user = loadJson("nutriplan.userState.v2", {schemaVersion:2,shoppingList:[],water:{},weeks:{},customFoods:[],customRecipes:[]});
   state.user.customFoods ||= [];
   state.user.customRecipes ||= [];
+
+  const imported=loadImportedCatalog();
+  const selected=selectNewestCatalog(catalogDefault,imported);
+  state.catalog=selected.catalog;
+  state.catalogSource=selected.source;
   rebuildRecipeMap();
+
+  const lastMeta=getLastActiveCatalogMeta();
+  const activeChanged=!lastMeta || lastMeta.signature!==catalogSignature(state.catalog);
+
   migrateEditableHistoryModel();
+  if(activeChanged){
+    refreshCurrentAndFutureRecipeSnapshots();
+    saveActiveCatalogMeta(state.catalog,state.catalogSource);
+  }
+
   ensureActiveWeek();
   wireNavigation();
   wireGlobalActions();
@@ -782,6 +923,10 @@ function closeSettings(){
 }
 function renderSettingsInfo(){
   document.getElementById("catalogVersionLabel").textContent=state.catalog.catalogVersion||"—";
+  const sourceLabel=document.getElementById("catalogSourceLabel");
+  if(sourceLabel){
+    sourceLabel.textContent=`Origen activo: ${state.catalogSource==="import"?"Import JSON":"GitHub"}${state.catalog.catalogUpdatedAt?` · ${state.catalog.catalogUpdatedAt}`:""}`;
+  }
   document.getElementById("rulesVersionLabel").textContent=state.rules.rulesVersion||"—";
 }
 async function importCatalogFromFile(file){
@@ -789,18 +934,55 @@ async function importCatalogFromFile(file){
   try{
     const next=JSON.parse(await file.text());
     validateCatalogImport(next);
-    const activeMissing=findCurrentFutureMissingRecipeIds(next);
-    if(activeMissing.length){
-      alert(`El catálogo no contiene recetas usadas en la semana actual o futuras: ${activeMissing.join(", ")}. No se importará.`);
+
+    if(compareCatalogs(next,state.catalog)<0){
+      alert(`El catálogo importado (${next.catalogVersion||"sin versión"}) es anterior al catálogo activo (${state.catalog.catalogVersion||"sin versión"}). No se activará porque NutriPlan siempre utiliza el catálogo más reciente.`);
       return;
     }
-    localStorage.setItem("nutriplan.catalog.v2",JSON.stringify(next));
-    state.catalog=next;
-    rebuildRecipeMap();
-    refreshCurrentAndFutureRecipeSnapshots();
-    renderFoodFilters();renderFoods();renderRecipeFilters();renderRecipes();renderMatrixFilters();renderMatrix();renderSettingsInfo();renderWeek();
-    alert("Catálogo actualizado. La semana actual y las futuras se han recalculado. Las semanas pasadas conservan sus valores históricos.");
-  }catch(err){alert(`No se pudo importar el catálogo: ${err.message||err}`)}
+
+    const diff=compareCatalogEntries(state.catalog,next);
+    if(diff.removedFoods.length || diff.removedRecipes.length){
+      const used=currentFutureUsagesForRecipeIds(diff.removedRecipes.map(x=>x.id));
+      const lines=[
+        "El catálogo que vas a importar elimina entradas que existen en el catálogo activo.",
+        "",
+        `Alimentos eliminados: ${diff.removedFoods.length}`,
+        ...diff.removedFoods.slice(0,8).map(x=>`• ${x.name||x.id}`),
+        ...(diff.removedFoods.length>8?[`• … y ${diff.removedFoods.length-8} más`]:[]),
+        "",
+        `Recetas eliminadas: ${diff.removedRecipes.length}`,
+        ...diff.removedRecipes.slice(0,8).map(x=>`• ${x.name||x.id}`),
+        ...(diff.removedRecipes.length>8?[`• … y ${diff.removedRecipes.length-8} más`]:[])
+      ];
+      if(used.size){
+        lines.push("",
+          "ATENCIÓN: algunas recetas eliminadas ya están usadas en la semana actual o futuras.",
+          "Las entradas ya planificadas conservarán su snapshot, pero dejarán de estar disponibles para nuevas selecciones."
+        );
+      }
+      lines.push("","¿Quieres continuar con la sustitución completa del catálogo?");
+      if(!confirm(lines.join("\n"))) return;
+    }
+
+    localStorage.setItem(IMPORTED_CATALOG_KEY,JSON.stringify(next));
+
+    const bundled=await fetch("./data/nutrition_catalog.json",{cache:"no-store"}).then(r=>r.json());
+    const selected=selectNewestCatalog(bundled,next);
+
+    if(selected.source!=="import"){
+      alert(`El archivo se ha guardado, pero el catálogo de GitHub (${bundled.catalogVersion||"sin versión"}) es más reciente y seguirá siendo el catálogo activo.`);
+      activateCatalog(selected.catalog,selected.source,{refresh:true});
+      return;
+    }
+
+    activateCatalog(next,"import",{refresh:true});
+    alert("Catálogo importado y activado. La semana actual y las futuras se han recalculado. Las semanas pasadas conservan sus snapshots históricos.");
+  }catch(err){
+    alert(`No se pudo importar el catálogo: ${err.message||err}`);
+  }finally{
+    const input=document.getElementById("catalogFileInput");
+    if(input) input.value="";
+  }
 }
 async function importRulesFromFile(file){
   if(!file)return;
@@ -814,14 +996,7 @@ async function importRulesFromFile(file){
     alert("Reglas actualizadas para la semana actual y las futuras. Las semanas pasadas mantienen las reglas con las que fueron evaluadas.");
   }catch(err){alert(`No se pudieron importar las reglas: ${err.message||err}`)}
 }
-function validateCatalogImport(c){
-  if(c.schemaVersion!==2||!Array.isArray(c.foods)||!Array.isArray(c.recipes)) throw new Error("Formato de catálogo no compatible.");
-  const ids=new Set();
-  for(const r of c.recipes){
-    if(!r.id||ids.has(r.id)||!Number.isInteger(r.version)) throw new Error("Hay recetas con ID o versión inválidos.");
-    ids.add(r.id);
-  }
-}
+
 function findCurrentFutureMissingRecipeIds(nextCatalog){
   const ids=new Set([...(nextCatalog.recipes||[]).map(r=>r.id),...(state.user.customRecipes||[]).map(r=>r.id)]);
   const missing=new Set();
@@ -880,6 +1055,7 @@ function exportBackup(){
     backupVersion:1,
     exportedAt:new Date().toISOString(),
     catalog:state.catalog,
+    catalogSource:state.catalogSource,
     rules:state.rules,
     userState:state.user
   };
@@ -891,16 +1067,36 @@ async function importBackupFromFile(file){
     const b=JSON.parse(await file.text());
     if(b.backupVersion!==1||!b.catalog||!b.rules||!b.userState) throw new Error("Copia de seguridad no compatible.");
     validateCatalogImport(b.catalog);
-    localStorage.setItem("nutriplan.catalog.v2",JSON.stringify(b.catalog));
+
+    localStorage.setItem(IMPORTED_CATALOG_KEY,JSON.stringify(b.catalog));
     localStorage.setItem("nutriplan.rules.v2",JSON.stringify(b.rules));
     localStorage.setItem("nutriplan.userState.v2",JSON.stringify(b.userState));
-    state.catalog=b.catalog;state.rules=b.rules;state.user=b.userState;
+
+    state.rules=b.rules;
+    state.user=b.userState;
     state.user.customFoods ||= [];
     state.user.customRecipes ||= [];
+
+    const bundled=await fetch("./data/nutrition_catalog.json",{cache:"no-store"}).then(r=>r.json());
+    const selected=selectNewestCatalog(bundled,b.catalog);
+    state.catalog=selected.catalog;
+    state.catalogSource=selected.source;
     rebuildRecipeMap();
-    renderGuide();renderFoodFilters();renderFoods();renderRecipeFilters();renderRecipes();renderMatrixFilters();renderMatrix();renderShopping();renderSettingsInfo();renderWeek();
-    alert("Copia de seguridad restaurada.");
-  }catch(err){alert(`No se pudo restaurar la copia: ${err.message||err}`)}
+
+    migrateEditableHistoryModel();
+    refreshCurrentAndFutureRecipeSnapshots();
+    saveActiveCatalogMeta(state.catalog,state.catalogSource);
+
+    renderGuide();renderFoodFilters();renderFoods();renderRecipeFilters();renderRecipes();
+    renderMatrixFilters();renderMatrix();renderShopping();renderSettingsInfo();renderWeek();
+
+    alert(`Copia de seguridad restaurada. Catálogo activo: ${state.catalog.catalogVersion||"—"} (${state.catalogSource==="import"?"Import":"GitHub"}).`);
+  }catch(err){
+    alert(`No se pudo restaurar la copia: ${err.message||err}`);
+  }finally{
+    const input=document.getElementById("backupFileInput");
+    if(input) input.value="";
+  }
 }
 function downloadJson(data,filename){
   const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
